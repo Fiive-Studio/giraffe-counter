@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Jugadores</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div *ngIf="showPlayers===false">
+    <ion-item>
+      <ion-label position="stacked">Digite el número de Jugadores <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input required type="number" inputmode="numeric" placeholder="Mínimo 2 - Máximo 5"
+        [(ngModel)]="playersCount"></ion-input>
+    </ion-item>
+
+    <div class="ion-padding">
+      <ion-button expand="block" type="submit" (click)="processPlayersCount()" class="ion-no-margin">Aceptar
+      </ion-button>
+    </div>
+  </div>
+
+  <div class="ion-padding" *ngIf="showPlayers">
+    <app-player-list [players]="players"></app-player-list>
+
+    <div class="ion-padding">
+      <ion-button expand="block" type="submit" (click)="fixCount()" class="ion-no-margin">Corregir Cantidad
+      </ion-button>
+    </div>
+  </div>
+
+</ion-content>
