@@ -9,7 +9,6 @@ import { UtilsService } from '../services/utils.service';
 export class PlayersPage implements OnInit {
 
   playersCount: number;
-  players: string[];
   showPlayers: boolean;
 
   constructor(private utils: UtilsService) { }
@@ -21,14 +20,13 @@ export class PlayersPage implements OnInit {
   processPlayersCount() {
     if (this.validateCount()) { 
       this.showPlayers = true;
-      this.players = new Array<string>(this.playersCount);
     }
   }
 
   validateCount(): boolean {
 
     if (this.utils.isNullOrUndefined(this.playersCount)) {
-      this.utils.showAlert("Error", "Debe digitado el número de jugadores");
+      this.utils.showAlert("Error", "Debe digitar el número de jugadores");
       return false;
     }
 

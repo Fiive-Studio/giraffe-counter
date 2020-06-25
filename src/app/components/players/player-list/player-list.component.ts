@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UtilsService } from 'src/app/services/utils.service';
+import { Router } from '@angular/router';
+import { PlayersService } from 'src/app/services/players.service';
 
 @Component({
   selector: 'app-player-list',
@@ -8,26 +10,22 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class PlayerListComponent implements OnInit {
 
-  @Input() players: string[];
-  count: number[];
+  @Input() playersCount: number;
 
-  constructor(private utils: UtilsService) { }
+  constructor(private playersService: PlayersService
+    , private router: Router) { }
 
   ngOnInit() {
-    this.count = new Array<number>(this.players.length);
+    this.playersService.setPlayersCount(this.playersCount);
   }
 
   playerChange($event: any, pos: number) {
-    this.players[pos] = $event.target.value;
+    this.playersService.setPlayer($event.target.value, pos)
   }
 
-  validateNames(): boolean {
-    for (let x = 0; x < this.players.length; x++) {
-      if (this.utils.isNullOrEmpty(this.players[x])) {
-        this.utils.showAlert("Error", "Debe digitar todos los nombres de los jugadores");
-        return false;
-      }
+  goToResults() {
+    if (this.playersService.validateNames()) {
+      this.router.navigateByUrl('/results');
     }
   }
-
 }

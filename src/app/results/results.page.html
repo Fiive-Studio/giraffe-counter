@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Resultados</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="playersService.getCount().length == 0">
+    <ion-label class="ion-padding" position="stacked">Debe seleccionar el número de Jugadores <ion-text color="danger">*</ion-text>
+    </ion-label>
+
+    <div class="ion-padding">
+      <ion-button expand="block" type="submit" (click)="redirectToPlayers()" class="ion-no-margin">Seleccionar Jugadores
+      </ion-button>
+    </div>
+  </div>
+
+  <div class="ion-padding" *ngIf="playersService.getCount().length > 0">
+    <ion-grid fixed="true">
+      <ion-row>
+        <ion-col *ngFor="let player of playersService.getPlayers();">
+          <div>{{player}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let result of playersService.getResults();">
+        <ion-col *ngFor="let v of result;">
+          <div>{{v}}</div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+</ion-content>
