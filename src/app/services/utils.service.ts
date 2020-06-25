@@ -14,6 +14,12 @@ export class UtilsService {
     return false;
   }
 
+  isNullOrEmpty(obj: string): boolean {
+    if (this.isNullOrUndefined(obj)) { return true; }
+    if (obj.trim() == "") { return true; }
+    return false;
+  }
+
   async showAlert(title: string, message: string) {
     const alert = await this.alertController.create({
       header: title,

@@ -1,6 +1,11 @@
 <ion-label position="stacked">Digite los Nombres <ion-text color="danger">*</ion-text>
 </ion-label>
-<ion-item *ngFor="let p of players">
+<ion-item *ngFor="let p of count; let i = index">
   <ion-icon slot="start" name="person"></ion-icon>
-  <ion-input required type="text" class="ion-text-start"></ion-input>
+  <ion-input required type="text" class="ion-text-start" (ionBlur)="playerChange($event, i)"></ion-input>
 </ion-item>
+
+<div class="ion-padding">
+  <ion-button expand="block" type="submit" (click)="validateNames()" class="ion-no-margin">Aceptar
+  </ion-button>
+</div>
