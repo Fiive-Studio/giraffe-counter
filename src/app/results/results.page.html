@@ -9,7 +9,8 @@
 
 <ion-content>
   <div *ngIf="playersService.getCount().length == 0">
-    <ion-label class="ion-padding" position="stacked">Debe seleccionar el número de Jugadores <ion-text color="danger">*</ion-text>
+    <ion-label class="ion-padding" position="stacked">Debe seleccionar el número de Jugadores <ion-text color="danger">*
+      </ion-text>
     </ion-label>
 
     <div class="ion-padding">
@@ -21,16 +22,21 @@
   <div class="ion-padding" *ngIf="playersService.getCount().length > 0">
     <ion-grid fixed="true">
       <ion-row>
-        <ion-col *ngFor="let player of playersService.getPlayers();">
-          <div>{{player}}</div>
+        <ion-col *ngFor="let player of playersService.getPlayersAbbr();">
+          <div class="title">{{player}}</div>
         </ion-col>
       </ion-row>
-      <ion-row *ngFor="let result of playersService.getResults();">
+      <ion-row *ngFor="let result of playersService.getResultsTotal();">
         <ion-col *ngFor="let v of result;">
           <div>{{v}}</div>
         </ion-col>
       </ion-row>
     </ion-grid>
+
+    <div class="ion-padding">
+      <ion-button expand="block" type="submit" (click)="showAlertResults()" class="ion-no-margin">Agregar Resultados
+      </ion-button>
+    </div>
   </div>
 
 </ion-content>

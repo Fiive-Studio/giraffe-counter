@@ -2,9 +2,16 @@ ion-grid{
   --ion-grid-padding: 0px;
 }
 
+ion-col > .title {
+  background-color: #ff9973;
+  border: solid 1px #ff7f50;
+  padding: 5px;
+  text-align: center;
+}
+
 ion-col > div {
-    background-color: #f7f7f7;
-    border: solid 1px #ddd;
+    background-color: #ffd9ca;
+    border: solid 1px #ff7f50;
     padding: 5px;
     text-align: center;
 }
