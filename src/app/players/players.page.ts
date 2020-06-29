@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UtilsService } from '../services/utils.service';
+import { PersistenceService } from '../services/persistence.service';
 
 @Component({
   selector: 'app-players',
@@ -11,14 +12,25 @@ export class PlayersPage implements OnInit {
   playersCount: number;
   showPlayers: boolean;
 
-  constructor(private utils: UtilsService) { }
+  constructor(private utils: UtilsService
+    , private persistence: PersistenceService) { }
 
   ngOnInit() {
-    this.showPlayers = false;
+    this.validateStorageData();
+  }
+
+  async validateStorageData() {
+    const result = await this.persistence.getValue(this.persistence.PLAYER_COUNT);
+    if (result != null) {
+      this.playersCount = parseInt(result);
+      this.showPlayers = true;
+    } else {
+      this.showPlayers = false;
+    }
   }
 
   processPlayersCount() {
-    if (this.validateCount()) { 
+    if (this.validateCount()) {
       this.showPlayers = true;
     }
   }
@@ -38,7 +50,7 @@ export class PlayersPage implements OnInit {
     return true;
   }
 
-  fixCount(){
+  fixCount() {
     this.showPlayers = false;
   }
 }

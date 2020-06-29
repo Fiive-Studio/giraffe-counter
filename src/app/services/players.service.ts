@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UtilsService } from './utils.service';
+import { PersistenceService } from './persistence.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,11 @@ export class PlayersService {
   private results: number[][];
   private resultsTotal: number[][];
   private count: number[];
+
+  // Usage
+  // first: set setPlayersCount
+  // second: setPlayer
+  // third: addResults
 
   constructor(private utils: UtilsService) {
     this.results = new Array<number[]>();
@@ -29,6 +35,22 @@ export class PlayersService {
   getPlayersAbbr() { return this.playersAbbr; }
   getResults() { return this.results; }
   getResultsTotal() { return this.resultsTotal; }
+
+  setPlayer(name: string, pos: number) {
+    this.players[pos] = name;
+    this.setPlayerAbbr(pos);
+  }
+
+  setPlayers(names: string[]) {
+    this.players = names;
+    for (let x = 0; x < this.players.length; x++) {
+      this.setPlayerAbbr(x);
+    }
+  }
+
+  setPlayerAbbr(pos: number) {
+    this.playersAbbr[pos] = this.players[pos][0];
+  }
 
   addResults(values: number[]) {
     this.results.push(new Array<number>(this.players.length));
@@ -50,15 +72,6 @@ export class PlayersService {
 
       this.resultsTotal[this.results.length - 1] = values;
     }
-  }
-
-  setPlayer(name: string, pos: number) {
-    this.players[pos] = name;
-    this.setPlayerAbbr(pos);
-  }
-
-  setPlayerAbbr(pos: number) {
-    this.playersAbbr[pos] = this.players[pos][0];
   }
 
   validateNames(): boolean {
