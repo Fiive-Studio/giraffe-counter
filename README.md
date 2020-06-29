@@ -1,56 +1,32 @@
-# Título del Proyecto
+
+# Giraffe Counter
 
 ![Fiive](https://fiivestudio.com/wp-content/uploads/2020/06/Fiive-Open-Source_2.png)
 
-_Descripción general de proyecto_
+Aplicación para llevar las cuentas de juegos que acumulan puntos
 
 ## Comenzando 🚀
 
-_Colocar instrucciones que permitirán obtener una copia del proyecto en funcionamiento en la máquina local para propósitos de desarrollo y pruebas._
-
-Mirar la sección **Deployment** para conocer como desplegar el proyecto.
-
+Realiza la copia del repositorio en tu equipo y ejecuta ionic serve para que se compile y ejecute el proyecto
 
 ### Pre-requisitos 📋
 
-_Que cosas necesitas para instalar el software y como instalarlas_
-
-```
-Da un ejemplo
-```
-
-### Instalación 🔧
-
-_Una serie de ejemplos paso a paso que te dice lo que debes ejecutar para tener un entorno de desarrollo ejecutandose_
-
-```
-Da un ejemplo
-```
-
-_Y repite_
-
-```
-hasta finalizar
-```
-
-_Finaliza con un ejemplo de cómo obtener datos del sistema o como usarlos para una pequeña demo_
-
-## Ejecutando las pruebas ⚙️
-
-_Explica como ejecutar las pruebas automatizadas o manuales para este sistema, si se incluye en el repositorio un archivo de Insonmia, PostMan, etc_
+Se requiere [Ionic CLI](https://ionicframework.com/docs/intro/cli) instalado
 
 ## Deployment 📦
 
-_Agrega notas adicionales sobre como hacer deploy_
+Para el deployment se recomienda utilizar la guía del sitio oficial
+* [Ionic Framework](https://ionicframework.com/docs/)
 
 ## Construido con 🛠️
 
-* [Ionic](https://ionicframework.com/)
+*  [Ionic](https://ionicframework.com/)
+* [Capacitor](https://capacitorjs.com/)
 
 ## Autores ✒️
 
-* **[Pablo Díaz](https://fiivestudio.com/pablo-diaz/)**
+*  **[Pablo Díaz](https://fiivestudio.com/pablo-diaz/)**
 
 ## Notas Adicionales
 
-* Cualquier nota que considere relevante para incluir
+* Para guardar los datos se utiliza el plugin Storage de Capacitor es cual solo acepta el almacenamiento de textos
