@@ -48,12 +48,18 @@ export class AppComponent implements OnInit {
   }
 
   async validateStorageData() {
-    const result = await this.persistence.getValue(this.persistence.PLAYER_COUNT);
-    if (result != null) {
-      this.playersService.setPlayersCount(parseInt(result));
+    const count = await this.persistence.getValue(this.persistence.PLAYER_COUNT);
+    if (count != null) {
+      this.playersService.setPlayersCount(parseInt(count));
 
       const data = await this.persistence.getObject(this.persistence.PLAYER_LIST);
       this.playersService.setPlayers(data);
+
+      const results = await this.persistence.getObject(this.persistence.RESULTS_LIST);
+      if (results != null) {
+        const resultsTotal = await this.persistence.getObject(this.persistence.RESULTS_TOTAL_LIST);
+        this.playersService.loadResults(results, resultsTotal);
+      }
     }
   }
 }

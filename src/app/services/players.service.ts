@@ -18,7 +18,8 @@ export class PlayersService {
   // second: setPlayer
   // third: addResults
 
-  constructor(private utils: UtilsService) {
+  constructor(private utils: UtilsService
+    , private persistence: PersistenceService) {
     this.results = new Array<number[]>();
     this.resultsTotal = new Array<number[]>();
     this.count = new Array<number>(0);
@@ -57,6 +58,10 @@ export class PlayersService {
     this.results[this.results.length - 1] = values;
 
     this.addResultsTotal(values);
+
+    // Storage data
+    this.persistence.saveObject(this.persistence.RESULTS_LIST, this.results);
+    this.persistence.saveObject(this.persistence.RESULTS_TOTAL_LIST, this.resultsTotal);
   }
 
   addResultsTotal(values: number[]) {
@@ -74,6 +79,11 @@ export class PlayersService {
     }
   }
 
+  loadResults(values: number[][], valuesTotal: number[][]) {
+    this.results = values;
+    this.resultsTotal = valuesTotal;
+  }
+
   validateNames(): boolean {
     for (let x = 0; x < this.players.length; x++) {
       if (this.utils.isNullOrEmpty(this.players[x])) {
@@ -87,5 +97,19 @@ export class PlayersService {
 
   showNames() {
     console.table(this.players);
+  }
+
+  removeResults(){
+    this.results = new Array<number[]>();
+    this.resultsTotal = new Array<number[]>();
+
+    this.persistence.removeItem(this.persistence.RESULTS_LIST);
+    this.persistence.removeItem(this.persistence.RESULTS_TOTAL_LIST);
+  }
+
+  resetValues() {
+    this.results = new Array<number[]>();
+    this.resultsTotal = new Array<number[]>();
+    this.count = new Array<number>(0);
   }
 }

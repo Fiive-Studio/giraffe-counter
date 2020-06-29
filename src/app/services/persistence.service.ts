@@ -10,7 +10,8 @@ export class PersistenceService {
   // Keys
   PLAYER_COUNT: string = 'player-count';
   PLAYER_LIST: string = 'player-list';
-  RESULTS_LIST: string = 'result-list';
+  RESULTS_LIST: string = 'results-list';
+  RESULTS_TOTAL_LIST: string = 'results-total-list';
 
   constructor() { }
 

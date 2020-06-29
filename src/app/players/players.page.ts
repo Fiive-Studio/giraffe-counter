@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UtilsService } from '../services/utils.service';
 import { PersistenceService } from '../services/persistence.service';
+import { PlayersService } from '../services/players.service';
 
 @Component({
   selector: 'app-players',
@@ -13,6 +14,7 @@ export class PlayersPage implements OnInit {
   showPlayers: boolean;
 
   constructor(private utils: UtilsService
+    , private playerService: PlayersService
     , private persistence: PersistenceService) { }
 
   ngOnInit() {
@@ -53,7 +55,8 @@ export class PlayersPage implements OnInit {
   fixCount() {
     this.utils.showAlertDecision("Giraffe", "¿Esta seguro de corregir la cantidad?", () => {
       this.persistence.clear();
+      this.playerService.resetValues();
       this.showPlayers = false;
-    })
+    });
   }
 }
