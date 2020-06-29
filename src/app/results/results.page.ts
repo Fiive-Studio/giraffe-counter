@@ -40,7 +40,6 @@ export class ResultsPage implements OnInit {
       }, {
         text: 'Aceptar',
         handler: (data) => {
-          console.log(data);
           return this.addResults(data);
         }
       }],

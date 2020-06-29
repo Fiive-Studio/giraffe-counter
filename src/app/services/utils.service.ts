@@ -24,7 +24,26 @@ export class UtilsService {
     const alert = await this.alertController.create({
       header: title,
       message: message,
-      buttons: ['Ok']
+      buttons: ['Aceptar']
+    });
+
+    await alert.present();
+  }
+
+  async showAlertDecision(title: string, message: string, callbackOk) {
+    const alert = await this.alertController.create({
+      header: title,
+      message: message,
+      buttons: [{
+        text: 'Cancelar',
+        role: 'cancel',
+        cssClass: 'secondary'
+      }, {
+        text: 'Aceptar',
+        handler: (data) => {
+          return callbackOk(data);
+        }
+      }]
     });
 
     await alert.present();

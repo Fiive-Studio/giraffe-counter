@@ -18,14 +18,13 @@ export class PlayerListComponent implements OnInit {
     , private persistence: PersistenceService) { }
 
   ngOnInit() {
-    this.playersService.setPlayersCount(this.playersCount);
     this.validateStorageData();
   }
 
-  async validateStorageData(){
-    const result = await this.persistence.getObject(this.persistence.PLAYER_LIST);
-    if(result!= null){
-      this.playersService.setPlayers(result);
+  async validateStorageData() {
+    const result = await this.persistence.getValue(this.persistence.PLAYER_COUNT);
+    if (result == null) {
+      this.playersService.setPlayersCount(this.playersCount);
     }
   }
 

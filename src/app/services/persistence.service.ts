@@ -38,4 +38,12 @@ export class PersistenceService {
       value: JSON.stringify(obj)
     });
   }
+
+  async removeItem(key: string) {
+    await Storage.remove({ key: key });
+  }
+
+  async clear() {
+    await Storage.clear();
+  }
 }

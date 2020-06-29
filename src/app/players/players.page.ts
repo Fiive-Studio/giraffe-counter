@@ -51,6 +51,9 @@ export class PlayersPage implements OnInit {
   }
 
   fixCount() {
-    this.showPlayers = false;
+    this.utils.showAlertDecision("Giraffe", "¿Esta seguro de corregir la cantidad?", () => {
+      this.persistence.clear();
+      this.showPlayers = false;
+    })
   }
 }
