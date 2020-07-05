@@ -11,7 +11,6 @@ import { UtilsService } from '../services/utils.service';
 })
 export class ResultsPage implements OnInit {
 
-  private inputs: any[];
   private defaultName = 'player';
 
   constructor(private playersService: PlayersService
@@ -26,13 +25,12 @@ export class ResultsPage implements OnInit {
     this.router.navigateByUrl('/players');
   }
 
-  async showAlertResults() {
+  async showAlertResults(pos: number) {
 
-    this.createInputs();
     const alert = await this.alertController.create({
       header: 'Giraffe',
-      message: 'Agregar resultados',
-      inputs: this.inputs,
+      message: 'Agregar resultado',
+      inputs: this.createInputs(pos),
       buttons: [{
         text: 'Cancelar',
         role: 'cancel',
@@ -40,7 +38,7 @@ export class ResultsPage implements OnInit {
       }, {
         text: 'Aceptar',
         handler: (data) => {
-          return this.addResults(data);
+          return this.addResult(pos, data);
         }
       }],
       cssClass: 'alert-style'
@@ -49,15 +47,9 @@ export class ResultsPage implements OnInit {
     await alert.present();
   }
 
-  addResults(data: any) {
+  addResult(pos: number, data: any) {
     if (this.validateData(data)) {
-
-      let newResults = new Array<number>();
-      for (let x = 0; x < this.playersService.getCount().length; x++) {
-        newResults.push(data[this.defaultName + x.toString()]);
-      }
-
-      this.playersService.addResults(newResults);
+      this.playersService.addResult(pos, parseInt(data[this.defaultName]));
       return true;
     }
 
@@ -65,36 +57,29 @@ export class ResultsPage implements OnInit {
   }
 
   validateData(data: any): boolean {
-    for (let x = 0; x < this.playersService.getCount().length; x++) {
 
-      if (this.utils.isNullOrEmpty(data[this.defaultName + x.toString()])) {
-        this.utils.showAlert("Error", "Debe digitar los resultados de todos los jugadores y deben ser numéricos");
-        return false;
-      }
+    if (this.utils.isNullOrEmpty(data[this.defaultName])) {
+      this.utils.showAlert("Error", "Debe digitar el resultado y debe ser numérico");
+      return false;
     }
 
     return true;
   }
 
-  createInputs() {
-    if (this.inputs === undefined) {
-
-      this.inputs = new Array(this.playersService.getCount().length);
-      let players = this.playersService.getPlayers();
-
-      for (let x = 0; x < players.length; x++) {
-        this.inputs.push(
-          {
-            name: this.defaultName + x.toString(),
-            type: 'number',
-            placeholder: players[x]
-          }
-        );
+  createInputs(pos: number) {
+    let input: any[] = new Array();
+    input.push(
+      {
+        name: this.defaultName,
+        type: 'number',
+        placeholder: this.playersService.getPlayers()[pos]
       }
-    }
+    );
+
+    return input;
   }
 
-  removeResults(){
+  removeResults() {
     this.utils.showAlertDecision("Giraffe", "¿Esta seguro de borrar los resultados?", () => {
       this.playersService.removeResults();
     });

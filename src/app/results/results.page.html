@@ -20,28 +20,40 @@
   </div>
 
   <div class="ion-padding" *ngIf="playersService.getCount().length > 0">
-    <ion-grid fixed="true">
-      <ion-row>
-        <ion-col *ngFor="let player of playersService.getPlayersAbbr();">
-          <div class="title">{{player}}</div>
-        </ion-col>
-      </ion-row>
-      <ion-row *ngFor="let result of playersService.getResultsTotal();">
-        <ion-col *ngFor="let v of result;">
-          <div>{{v}}</div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <ion-content class="grid-head" scrollY="false">
+      <ion-grid fixed="true">
+        <ion-row>
+          <ion-col *ngFor="let player of playersService.getPlayersAbbr();">
+            <div class="title">{{player}}</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-content>
 
-    <div class="ion-padding">
-      <ion-button expand="block" type="submit" (click)="showAlertResults()" class="ion-no-margin">Agregar Resultados
-      </ion-button>
-    </div>
+    <ion-content class="grid-detail">
+      <ion-grid fixed="true">
+        <ion-row *ngFor="let result of playersService.getResultsTotal(); let i = index">
+          <ion-col *ngFor="let v of result;">
+            <div>&nbsp;{{v}}</div>
+            <hr *ngIf="playersService.showSplit(i)" />
+          </ion-col>
+        </ion-row>
 
-    <div class="ion-padding">
-      <ion-button expand="block" type="submit" (click)="removeResults()" class="ion-no-margin">Borrar Resultados
-      </ion-button>
-    </div>
+        <ion-row>
+          <ion-col class="ion-text-center" *ngFor="let player of playersService.getCount(); let i = index">
+            <ion-button (click)="showAlertResults(i)">
+              <ion-icon name="add-circle-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <div class="ion-padding">
+        <ion-button expand="block" type="submit" (click)="removeResults()" class="ion-no-margin">Borrar Resultados
+        </ion-button>
+      </div>
+    </ion-content>
+
   </div>
 
 </ion-content>

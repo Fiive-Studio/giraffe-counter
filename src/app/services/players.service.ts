@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { UtilsService } from './utils.service';
 import { PersistenceService } from './persistence.service';
+import { IResults } from '../interfaces/iresult.interface';
+import { ChinchonService } from './results/chinchon.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +11,8 @@ export class PlayersService {
 
   private players: string[];
   private playersAbbr: string[];
-  private results: number[][];
-  private resultsTotal: number[][];
   private count: number[];
+  private results: IResults;
 
   // Usage
   // first: set setPlayersCount
@@ -20,22 +21,23 @@ export class PlayersService {
 
   constructor(private utils: UtilsService
     , private persistence: PersistenceService) {
-    this.results = new Array<number[]>();
-    this.resultsTotal = new Array<number[]>();
     this.count = new Array<number>(0);
+    this.results = new ChinchonService();
   }
 
   setPlayersCount(count: number) {
     this.players = new Array<string>(count);
     this.count = new Array<number>(count);
     this.playersAbbr = new Array<string>(count);
+    this.results.setCount(count);
   }
 
-  getCount() { return this.count; }
-  getPlayers() { return this.players; }
-  getPlayersAbbr() { return this.playersAbbr; }
-  getResults() { return this.results; }
-  getResultsTotal() { return this.resultsTotal; }
+  getCount(): number[] { return this.count; }
+  getPlayers(): string[] { return this.players; }
+  getPlayersAbbr(): string[] { return this.playersAbbr; }
+  getResults(): number[][] { return this.results.getResults(); }
+  getResultsTotal(): number[][] { return this.results.getResultsTotal(); }
+  showSplit(pos: number): boolean { return this.results.showSplit(pos); }
 
   setPlayer(name: string, pos: number) {
     this.players[pos] = name;
@@ -53,35 +55,15 @@ export class PlayersService {
     this.playersAbbr[pos] = this.players[pos][0];
   }
 
-  addResults(values: number[]) {
-    this.results.push(new Array<number>(this.players.length));
-    this.results[this.results.length - 1] = values;
-
-    this.addResultsTotal(values);
-
+  addResult(pos: number, value: number) {
+    this.results.addResult(pos, value);
     // Storage data
-    this.persistence.saveObject(this.persistence.RESULTS_LIST, this.results);
-    this.persistence.saveObject(this.persistence.RESULTS_TOTAL_LIST, this.resultsTotal);
-  }
-
-  addResultsTotal(values: number[]) {
-
-    if (this.results.length > 0) {
-      this.resultsTotal.push(new Array<number>(this.players.length));
-
-      if (this.results.length > 1) {
-        for (let x = 0; x < values.length; x++) {
-          values[x] = parseInt(values[x].toString()) + parseInt(this.results[this.results.length - 2][x].toString());
-        }
-      }
-
-      this.resultsTotal[this.results.length - 1] = values;
-    }
+    this.persistence.saveObject(this.persistence.RESULTS_LIST, this.results.getResults());
+    this.persistence.saveObject(this.persistence.RESULTS_TOTAL_LIST, this.results.getResultsTotal());
   }
 
   loadResults(values: number[][], valuesTotal: number[][]) {
-    this.results = values;
-    this.resultsTotal = valuesTotal;
+    this.results.loadResults(values, valuesTotal);
   }
 
   validateNames(): boolean {
@@ -95,21 +77,14 @@ export class PlayersService {
     return true;
   }
 
-  showNames() {
-    console.table(this.players);
-  }
-
-  removeResults(){
-    this.results = new Array<number[]>();
-    this.resultsTotal = new Array<number[]>();
-
+  removeResults() {
+    this.results.resetValues();
     this.persistence.removeItem(this.persistence.RESULTS_LIST);
     this.persistence.removeItem(this.persistence.RESULTS_TOTAL_LIST);
   }
 
   resetValues() {
-    this.results = new Array<number[]>();
-    this.resultsTotal = new Array<number[]>();
+    this.results.resetValues();
     this.count = new Array<number>(0);
   }
 }
