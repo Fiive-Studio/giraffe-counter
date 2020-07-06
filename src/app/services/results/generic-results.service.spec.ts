@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ChinchonService } from './chinchon.service';
+import { GenericResultsService } from './generic-results.service';
 
 describe('ChinchonService', () => {
-  let service: ChinchonService;
+  let service: GenericResultsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ChinchonService);
+    service = TestBed.inject(GenericResultsService);
   });
 
   it('should be created', () => {

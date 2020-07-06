@@ -33,8 +33,8 @@
     <ion-content class="grid-detail">
       <ion-grid fixed="true">
         <ion-row *ngFor="let result of playersService.getResultsTotal(); let i = index">
-          <ion-col *ngFor="let v of result;">
-            <div>&nbsp;{{v}}</div>
+          <ion-col *ngFor="let v of result; let y = index">
+            <div [ngClass]="playersService.getClass(y)">&nbsp;{{v}}</div>
             <hr *ngIf="playersService.showSplit(i)" />
           </ion-col>
         </ion-row>

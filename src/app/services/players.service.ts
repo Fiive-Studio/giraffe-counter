@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { UtilsService } from './utils.service';
 import { PersistenceService } from './persistence.service';
 import { IResults } from '../interfaces/iresult.interface';
-import { ChinchonService } from './results/chinchon.service';
+import { GenericResultsService } from './results/generic-results.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class PlayersService {
   constructor(private utils: UtilsService
     , private persistence: PersistenceService) {
     this.count = new Array<number>(0);
-    this.results = new ChinchonService(persistence);
+    this.results = new GenericResultsService(persistence);
   }
 
   setPlayersCount(count: number) {
@@ -38,6 +38,7 @@ export class PlayersService {
   getResults(): number[][] { return this.results.getResults(); }
   getResultsTotal(): number[][] { return this.results.getResultsTotal(); }
   showSplit(pos: number): boolean { return this.results.showSplit(pos); }
+  getClass(pos: number): string { return this.results.getClass(pos); }
 
   setPlayer(name: string, pos: number) {
     this.players[pos] = name;

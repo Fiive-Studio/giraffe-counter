@@ -3,17 +3,25 @@ ion-grid{
 }
 
 ion-col > .title {
-  background-color: #ff9973;
-  border: solid 1px #ff7f50;
+  background-color: var(--ion-color-secondary);
+  border: solid 1px var(--ion-color-primary);
   padding: 5px;
   text-align: center;
 }
 
-ion-col > div {
-    background-color: #ffd9ca;
-    border: solid 1px #ff7f50;
+ion-col > .default {
+    background-color: var(--ion-color-tertiary);
+    border: solid 1px var(--ion-color-primary);
     padding: 5px;
     text-align: center;
+}
+
+ion-col > .alert {
+  background-color: var(--ion-color-danger);
+  border: solid 1px var(--ion-color-primary);
+  padding: 5px;
+  text-align: center;
+  color: var(--ion-color-light);
 }
 
 hr{

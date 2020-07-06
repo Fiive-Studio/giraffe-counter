@@ -1,29 +1,47 @@
 import { Injectable } from '@angular/core';
 import { IResults } from 'src/app/interfaces/iresult.interface';
 import { PersistenceService } from '../persistence.service';
+import { IResultsValidations } from 'src/app/interfaces/iresult-validations.interface';
+import { ChinchonValidationsService } from './chinchon-validations.service';
 
 export class PlayerStatus {
   posActual: number = 0;
+  extras: {} = {};
+}
+
+export enum ResultClass {
+  default,
+  alert
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class ChinchonService implements IResults {
+export class GenericResultsService implements IResults {
 
   private count: number;
   private results: number[][];
   private resultsTotal: number[][];
   private playersStatus: PlayerStatus[];
+  private validations: IResultsValidations;
   PLAYER_STATUS: string = 'cc-player-status';
+  DEFAULT_CLASS = 'default';
+  ALERT_CLASS = 'alert';
 
   constructor(private persistence: PersistenceService) {
     this.results = new Array<number[]>();
     this.resultsTotal = new Array<number[]>();
+    this.validations = new ChinchonValidationsService();
   }
 
   getResults(): number[][] { return this.results; }
   getResultsTotal(): number[][] { return this.resultsTotal; }
+  getClass(pos: number): string {
+    let rClass = this.validations.getClass(this.playersStatus[pos])
+    if (rClass == ResultClass.default) { return this.DEFAULT_CLASS; }
+    else if (rClass == ResultClass.alert) { return this.ALERT_CLASS; }
+  }
+
   setCount(count: number): void {
     this.count = count;
     this.playersStatus = new Array<PlayerStatus>(count);
@@ -46,8 +64,6 @@ export class ChinchonService implements IResults {
   addResultTotal(pos: number, value: number) {
     if (this.results.length > 0) {
 
-      console.log(this.playersStatus[pos].posActual);
-
       let posToValidate = this.playersStatus[pos].posActual;
 
       if (this.resultsTotal[posToValidate] == undefined) {
@@ -58,7 +74,7 @@ export class ChinchonService implements IResults {
         value = value + this.resultsTotal[posToValidate - 1][pos];
       }
 
-      this.resultsTotal[posToValidate][pos] = value;
+      this.resultsTotal[posToValidate][pos] = this.validations.validateValue(value, this.playersStatus[pos]);
     }
   }
 
@@ -77,7 +93,8 @@ export class ChinchonService implements IResults {
 
       if (this.results.length > 1) {
         for (let x = 0; x < values.length; x++) {
-          values[x] = parseInt(values[x].toString()) + parseInt(this.results[this.results.length - 2][x].toString());
+          let newValue = parseInt(values[x].toString()) + parseInt(this.results[this.results.length - 2][x].toString());
+          values[x] = this.validations.validateValue(newValue, this.playersStatus[x]);
         }
       }
 
@@ -98,7 +115,7 @@ export class ChinchonService implements IResults {
   }
 
   showSplit(pos: number): boolean {
-    return ((pos + 1) % this.count) == 0;
+    return this.validations.showSplit(pos, this.count);
   }
 
   persist(): void {

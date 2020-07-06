@@ -9,4 +9,5 @@ export interface IResults {
     getResultsTotal(): number[][];
     persist(): void;
     removePersist(): void;
+    getClass(pos: number): string;
 }
