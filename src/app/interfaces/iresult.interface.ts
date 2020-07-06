@@ -7,4 +7,6 @@ export interface IResults {
     resetValues(): void;
     getResults(): number[][];
     getResultsTotal(): number[][];
+    persist(): void;
+    removePersist(): void;
 }

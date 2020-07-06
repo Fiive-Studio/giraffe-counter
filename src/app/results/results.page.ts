@@ -81,7 +81,7 @@ export class ResultsPage implements OnInit {
 
   removeResults() {
     this.utils.showAlertDecision("Giraffe", "¿Esta seguro de borrar los resultados?", () => {
-      this.playersService.removeResults();
+      this.playersService.removePersistence();
     });
   }
 }

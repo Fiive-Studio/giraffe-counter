@@ -8,10 +8,10 @@ const { Storage } = Plugins;
 export class PersistenceService {
 
   // Keys
-  PLAYER_COUNT: string = 'player-count';
-  PLAYER_LIST: string = 'player-list';
-  RESULTS_LIST: string = 'results-list';
-  RESULTS_TOTAL_LIST: string = 'results-total-list';
+  PLAYER_COUNT: string = 'gl-player-count';
+  PLAYER_LIST: string = 'gl-player-list';
+  RESULTS_LIST: string = 'gl-results-list';
+  RESULTS_TOTAL_LIST: string = 'gl-results-total-list';
 
   constructor() { }
 

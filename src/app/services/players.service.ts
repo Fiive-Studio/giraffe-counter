@@ -22,7 +22,7 @@ export class PlayersService {
   constructor(private utils: UtilsService
     , private persistence: PersistenceService) {
     this.count = new Array<number>(0);
-    this.results = new ChinchonService();
+    this.results = new ChinchonService(persistence);
   }
 
   setPlayersCount(count: number) {
@@ -60,6 +60,7 @@ export class PlayersService {
     // Storage data
     this.persistence.saveObject(this.persistence.RESULTS_LIST, this.results.getResults());
     this.persistence.saveObject(this.persistence.RESULTS_TOTAL_LIST, this.results.getResultsTotal());
+    this.results.persist();
   }
 
   loadResults(values: number[][], valuesTotal: number[][]) {
@@ -77,10 +78,11 @@ export class PlayersService {
     return true;
   }
 
-  removeResults() {
+  removePersistence() {
     this.results.resetValues();
     this.persistence.removeItem(this.persistence.RESULTS_LIST);
     this.persistence.removeItem(this.persistence.RESULTS_TOTAL_LIST);
+    this.results.removePersist();
   }
 
   resetValues() {

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { IResults } from 'src/app/interfaces/iresult.interface';
+import { PersistenceService } from '../persistence.service';
 
 export class PlayerStatus {
-  posActual: number = -1;
+  posActual: number = 0;
 }
 
 @Injectable({
@@ -14,8 +15,9 @@ export class ChinchonService implements IResults {
   private results: number[][];
   private resultsTotal: number[][];
   private playersStatus: PlayerStatus[];
+  PLAYER_STATUS: string = 'cc-player-status';
 
-  constructor() {
+  constructor(private persistence: PersistenceService) {
     this.results = new Array<number[]>();
     this.resultsTotal = new Array<number[]>();
   }
@@ -30,7 +32,7 @@ export class ChinchonService implements IResults {
   addResult(pos: number, value: number): void {
     if (this.playersStatus[pos] == undefined) { this.playersStatus[pos] = new PlayerStatus(); }
 
-    let posToValidate = this.playersStatus[pos].posActual == -1 ? 0 : this.playersStatus[pos].posActual;
+    let posToValidate = this.playersStatus[pos].posActual;
 
     if (this.results[posToValidate] == undefined) {
       this.results.push(new Array<number>(this.count));
@@ -39,21 +41,21 @@ export class ChinchonService implements IResults {
 
     this.addResultTotal(pos, value);
     this.playersStatus[pos].posActual++;
-
-    console.table(this.results);
-    console.table(this.resultsTotal);
   }
 
   addResultTotal(pos: number, value: number) {
     if (this.results.length > 0) {
-      let posToValidate = this.playersStatus[pos].posActual == -1 ? 0 : this.playersStatus[pos].posActual;
+
+      console.log(this.playersStatus[pos].posActual);
+
+      let posToValidate = this.playersStatus[pos].posActual;
 
       if (this.resultsTotal[posToValidate] == undefined) {
         this.resultsTotal.push(new Array<number>(this.count));
       }
 
       if (posToValidate > 0) {
-        value = value + this.results[posToValidate][pos];
+        value = value + this.resultsTotal[posToValidate - 1][pos];
       }
 
       this.resultsTotal[posToValidate][pos] = value;
@@ -86,14 +88,24 @@ export class ChinchonService implements IResults {
   resetValues(): void {
     this.results = new Array<number[]>();
     this.resultsTotal = new Array<number[]>();
+    this.playersStatus = new Array<PlayerStatus>(this.count);
   }
 
-  loadResults(values: number[][], valuesTotal: number[][]): void {
+  async loadResults(values: number[][], valuesTotal: number[][]): Promise<void> {
     this.results = values;
     this.resultsTotal = valuesTotal;
+    this.playersStatus = await this.persistence.getObject(this.PLAYER_STATUS);
   }
 
   showSplit(pos: number): boolean {
     return ((pos + 1) % this.count) == 0;
+  }
+
+  persist(): void {
+    this.persistence.saveObject(this.PLAYER_STATUS, this.playersStatus);
+  }
+
+  removePersist(): void {
+    this.persistence.removeItem(this.PLAYER_STATUS);
   }
 }
