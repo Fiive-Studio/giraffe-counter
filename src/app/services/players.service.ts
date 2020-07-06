@@ -56,12 +56,17 @@ export class PlayersService {
     this.playersAbbr[pos] = this.players[pos][0];
   }
 
-  addResult(pos: number, value: number) {
-    this.results.addResult(pos, value);
-    // Storage data
-    this.persistence.saveObject(this.persistence.RESULTS_LIST, this.results.getResults());
-    this.persistence.saveObject(this.persistence.RESULTS_TOTAL_LIST, this.results.getResultsTotal());
-    this.results.persist();
+  addResult(pos: number, value: number): boolean {
+    if (this.results.addResult(pos, value)) {
+      // Storage data
+      this.persistence.saveObject(this.persistence.RESULTS_LIST, this.results.getResults());
+      this.persistence.saveObject(this.persistence.RESULTS_TOTAL_LIST, this.results.getResultsTotal());
+      this.results.persist();
+      
+      return true;
+    }
+
+    return false;
   }
 
   loadResults(values: number[][], valuesTotal: number[][]) {

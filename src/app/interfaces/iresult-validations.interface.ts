@@ -4,4 +4,6 @@ export interface IResultsValidations {
     showSplit(pos: number, count: number): boolean;
     getClass(player: PlayerStatus): ResultClass
     validateValue(value: number, player: PlayerStatus): number;
+    isPossibleAddValue(playersStatus: PlayerStatus[], currentPos: number): boolean;
+    validateReincarnate(playersStatus: PlayerStatus[]): number[]
 }

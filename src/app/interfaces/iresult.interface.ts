@@ -1,7 +1,7 @@
 export interface IResults {
     setCount(count: number): void;
     showSplit(pos: number): boolean;
-    addResult(pos: number, value: number): void;
+    addResult(pos: number, value: number): boolean;
     addResults(values: number[]): void;
     loadResults(values: number[][], valuesTotal: number[][]): void;
     resetValues(): void;

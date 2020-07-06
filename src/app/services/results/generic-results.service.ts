@@ -6,6 +6,7 @@ import { ChinchonValidationsService } from './chinchon-validations.service';
 
 export class PlayerStatus {
   posActual: number = 0;
+  currentValue: number = 0;
   extras: {} = {};
 }
 
@@ -47,18 +48,27 @@ export class GenericResultsService implements IResults {
     this.playersStatus = new Array<PlayerStatus>(count);
   }
 
-  addResult(pos: number, value: number): void {
-    if (this.playersStatus[pos] == undefined) { this.playersStatus[pos] = new PlayerStatus(); }
+  addResult(pos: number, value: number): boolean {
 
-    let posToValidate = this.playersStatus[pos].posActual;
+    if (this.validations.isPossibleAddValue(this.playersStatus, pos)) {
 
-    if (this.results[posToValidate] == undefined) {
-      this.results.push(new Array<number>(this.count));
+      if (this.playersStatus[pos] == undefined) { this.playersStatus[pos] = new PlayerStatus(); }
+
+      let posToValidate = this.playersStatus[pos].posActual;
+
+      if (this.results[posToValidate] == undefined) {
+        this.results.push(new Array<number>(this.count));
+      }
+      this.results[posToValidate][pos] = value;
+
+      this.addResultTotal(pos, value);
+      this.playersStatus[pos].posActual++;
+      //this.validations.validateReincarnate(this.playersStatus);
+
+      return true;
     }
-    this.results[posToValidate][pos] = value;
 
-    this.addResultTotal(pos, value);
-    this.playersStatus[pos].posActual++;
+    return false;
   }
 
   addResultTotal(pos: number, value: number) {
@@ -74,7 +84,9 @@ export class GenericResultsService implements IResults {
         value = value + this.resultsTotal[posToValidate - 1][pos];
       }
 
-      this.resultsTotal[posToValidate][pos] = this.validations.validateValue(value, this.playersStatus[pos]);
+      let newValue = this.validations.validateValue(value, this.playersStatus[pos]);
+      this.resultsTotal[posToValidate][pos] = newValue;
+      this.playersStatus[pos].currentValue = newValue;
     }
   }
 
@@ -84,6 +96,7 @@ export class GenericResultsService implements IResults {
 
     this.addResultsTotal(values);
     for (let i = 0; i < this.playersStatus.length; i++) { this.playersStatus[i].posActual++; }
+    //this.validations.validateReincarnate(this.playersStatus);
   }
 
   addResultsTotal(values: number[]) {
