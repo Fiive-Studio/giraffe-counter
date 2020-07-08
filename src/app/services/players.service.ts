@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { UtilsService } from './utils.service';
 import { PersistenceService } from './persistence.service';
 import { IResults } from '../interfaces/iresult.interface';
-import { GenericResultsService } from './results/generic-results.service';
+import { GenericResultsService, AddResultResponse } from './results/generic-results.service';
 
 @Injectable({
   providedIn: 'root'
@@ -56,17 +56,18 @@ export class PlayersService {
     this.playersAbbr[pos] = this.players[pos][0];
   }
 
-  addResult(pos: number, value: number): boolean {
-    if (this.results.addResult(pos, value)) {
+  addResult(pos: number, value: number): AddResultResponse {
+    let result = this.results.addResult(pos, value);
+    if (result.status) {
       // Storage data
       this.persistence.saveObject(this.persistence.RESULTS_LIST, this.results.getResults());
       this.persistence.saveObject(this.persistence.RESULTS_TOTAL_LIST, this.results.getResultsTotal());
       this.results.persist();
       
-      return true;
+      return result;
     }
 
-    return false;
+    return result;
   }
 
   loadResults(values: number[][], valuesTotal: number[][]) {

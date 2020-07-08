@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IResultsValidations } from 'src/app/interfaces/iresult-validations.interface';
-import { PlayerStatus, ResultClass } from './generic-results.service';
+import { PlayerStatus, ResultClass, AddResultResponse } from './generic-results.service';
 
 export enum ChinchonPlayerState {
   active,
@@ -19,24 +19,27 @@ export class ChinchonValidationsService implements IResultsValidations {
 
   constructor() { }
 
-  isPossibleAddValue(playersStatus: PlayerStatus[], currentPos: number): boolean {
+  isPossibleAddValue(playersStatus: PlayerStatus[], currentPos: number): AddResultResponse {
+
     let pos = 0;
     let currentPlayer = playersStatus[currentPos];
-    if (currentPlayer == undefined) { return true; }
+    if (currentPlayer == undefined) { return { status: true, message: null }; }
+    if (currentPlayer.extras[this.PLAYER_STATE] == ChinchonPlayerState.miss) { return { status: false, message: "El jugador ya perdió" }; }
 
+    const message = "Debe digitar los resultados de los demás jugadores";
     for (let x = 0; x < playersStatus.length; x++) {
       if (pos != currentPos) {
         let player = playersStatus[x];
-        if (player == null) { return false; }
+        if (player == null) { return { status: false, message: message }; }
 
         if (player.extras[this.PLAYER_STATE] != ChinchonPlayerState.miss) {
-          if (player.posActual != currentPlayer.posActual && player.posActual < currentPlayer.posActual) { return false; }
+          if (player.posActual != currentPlayer.posActual && player.posActual < currentPlayer.posActual) { return { status: false, message: message }; }
         }
       }
       pos++;
     }
 
-    return true;
+    return { status: true, message: null };
   }
 
   validateValue(value: number, player: PlayerStatus): number {
@@ -69,9 +72,8 @@ export class ChinchonValidationsService implements IResultsValidations {
       }
     }
 
-    console.log("---");
-    console.log(posToUpdate);
-
+    if (posToUpdate.length == 0) { return null; }
+    posToUpdate.unshift(biggerNumber);
     return posToUpdate;
   }
 

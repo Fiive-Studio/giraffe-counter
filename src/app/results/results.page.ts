@@ -49,8 +49,9 @@ export class ResultsPage implements OnInit {
 
   addResult(pos: number, data: any) {
     if (this.validateData(data)) {
-      if (!this.playersService.addResult(pos, parseInt(data[this.defaultName]))) {
-        this.utils.showAlert("Error", "Debe digitar los resultados de los demás jugadores");
+      let response = this.playersService.addResult(pos, parseInt(data[this.defaultName]));
+      if (!response.status) {
+        this.utils.showAlert("Error", response.message);
         return false;
       } else { return true; }
     }

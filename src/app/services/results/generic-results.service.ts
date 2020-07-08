@@ -15,6 +15,11 @@ export enum ResultClass {
   alert
 }
 
+export class AddResultResponse {
+  status: boolean;
+  message: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -48,9 +53,10 @@ export class GenericResultsService implements IResults {
     this.playersStatus = new Array<PlayerStatus>(count);
   }
 
-  addResult(pos: number, value: number): boolean {
+  addResult(pos: number, value: number): AddResultResponse {
 
-    if (this.validations.isPossibleAddValue(this.playersStatus, pos)) {
+    let validation = this.validations.isPossibleAddValue(this.playersStatus, pos);
+    if (validation.status) {
 
       if (this.playersStatus[pos] == undefined) { this.playersStatus[pos] = new PlayerStatus(); }
 
@@ -63,12 +69,14 @@ export class GenericResultsService implements IResults {
 
       this.addResultTotal(pos, value);
       this.playersStatus[pos].posActual++;
-      //this.validations.validateReincarnate(this.playersStatus);
 
-      return true;
+      let updateValues = this.validations.validateReincarnate(this.playersStatus);
+      if (updateValues != null) { this.updateReincarnate(updateValues); }
+
+      return validation;
     }
 
-    return false;
+    return validation;
   }
 
   addResultTotal(pos: number, value: number) {
@@ -96,7 +104,9 @@ export class GenericResultsService implements IResults {
 
     this.addResultsTotal(values);
     for (let i = 0; i < this.playersStatus.length; i++) { this.playersStatus[i].posActual++; }
-    //this.validations.validateReincarnate(this.playersStatus);
+
+    let updateValues = this.validations.validateReincarnate(this.playersStatus);
+    if (updateValues != null) { this.updateReincarnate(updateValues); }
   }
 
   addResultsTotal(values: number[]) {
@@ -112,6 +122,13 @@ export class GenericResultsService implements IResults {
       }
 
       this.resultsTotal[this.results.length - 1] = values;
+    }
+  }
+
+  updateReincarnate(values: number[]) {
+    let newValue = values[0];
+    for (let i = 1; i < values.length; i++) {
+      this.resultsTotal[this.resultsTotal.length - 1][values[i]] = newValue;
     }
   }
 
