@@ -3,6 +3,7 @@ import { UtilsService } from './utils.service';
 import { PersistenceService } from './persistence.service';
 import { IResults } from '../interfaces/iresult.interface';
 import { GenericResultsService, AddResultResponse } from './results/generic-results.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,16 +14,25 @@ export class PlayersService {
   private playersAbbr: string[];
   private count: number[];
   private results: IResults;
+  private currentPlayer = new BehaviorSubject<string>('');
+  currentPlayer$ = this.currentPlayer.asObservable();
 
   // Usage
   // first: set setPlayersCount
   // second: setPlayer
-  // third: addResults
+  // third: setTurn
+  // fourth: addResults
 
   constructor(private utils: UtilsService
     , private persistence: PersistenceService) {
     this.count = new Array<number>(0);
     this.results = new GenericResultsService(persistence);
+
+    this.results.currentTurn$.subscribe((e) => {
+      if (this.players != undefined) {
+        this.currentPlayer.next(this.players[e]);
+      }
+    });
   }
 
   setPlayersCount(count: number) {
@@ -32,17 +42,21 @@ export class PlayersService {
     this.results.setCount(count);
   }
 
+  setTurn() {
+    this.currentPlayer.next(this.players[0]); // defaultTurn
+  }
+
   getCount(): number[] { return this.count; }
   getPlayers(): string[] { return this.players; }
   getPlayersAbbr(): string[] { return this.playersAbbr; }
   getResults(): number[][] { return this.results.getResults(); }
   getResultsTotal(): number[][] { return this.results.getResultsTotal(); }
-  showSplit(pos: number): boolean { return this.results.showSplit(pos); }
   getClass(pos: number): string { return this.results.getClass(pos); }
 
   setPlayer(name: string, pos: number) {
     this.players[pos] = name;
     this.setPlayerAbbr(pos);
+    this.setTurn();
   }
 
   setPlayers(names: string[]) {
@@ -50,6 +64,7 @@ export class PlayersService {
     for (let x = 0; x < this.players.length; x++) {
       this.setPlayerAbbr(x);
     }
+    this.setTurn();
   }
 
   setPlayerAbbr(pos: number) {
@@ -63,7 +78,7 @@ export class PlayersService {
       this.persistence.saveObject(this.persistence.RESULTS_LIST, this.results.getResults());
       this.persistence.saveObject(this.persistence.RESULTS_TOTAL_LIST, this.results.getResultsTotal());
       this.results.persist();
-      
+
       return result;
     }
 

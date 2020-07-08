@@ -17,6 +17,13 @@ ion-col > .default {
 }
 
 ion-col > .alert {
+  background-color: var(--ion-color-warning);
+  border: solid 1px var(--ion-color-primary);
+  padding: 5px;
+  text-align: center;
+}
+
+ion-col > .miss {
   background-color: var(--ion-color-danger);
   border: solid 1px var(--ion-color-primary);
   padding: 5px;
@@ -33,14 +40,14 @@ hr{
   position: fixed;
   left: 0;
   right: 0;
-  top: 50px !important;
-  height: 40px !important;
+  top: 65px !important;
+  height: 60px !important;
 }
 
 .grid-detail{
   position: fixed;
   left: 0;
   right: 0;
-  top: 90px !important;
+  top: 125px !important;
   height: 85% !important;
 }

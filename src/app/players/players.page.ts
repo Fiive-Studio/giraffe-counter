@@ -53,7 +53,7 @@ export class PlayersPage implements OnInit {
   }
 
   fixCount() {
-    this.utils.showAlertDecision("Giraffe", "¿Esta seguro de corregir la cantidad?", () => {
+    this.utils.showAlertDecision("Giraffe", "¿Esta seguro de desea borrar los datos guardados?", () => {
       this.persistence.clear();
       this.playerService.resetValues();
       this.showPlayers = false;

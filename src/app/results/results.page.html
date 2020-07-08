@@ -21,6 +21,8 @@
 
   <div class="ion-padding" *ngIf="playersService.getCount().length > 0">
     <ion-content class="grid-head" scrollY="false">
+      <ion-label class="ion-padding" position="stacked">Turno: <b>{{currentPlayer$ | async}}</b></ion-label>
+
       <ion-grid fixed="true">
         <ion-row>
           <ion-col *ngFor="let player of playersService.getPlayersAbbr();">
@@ -32,10 +34,9 @@
 
     <ion-content class="grid-detail">
       <ion-grid fixed="true">
-        <ion-row *ngFor="let result of playersService.getResultsTotal(); let i = index">
+        <ion-row *ngFor="let result of playersService.getResultsTotal()">
           <ion-col *ngFor="let v of result; let y = index">
             <div [ngClass]="playersService.getClass(y)">&nbsp;{{v}}</div>
-            <hr *ngIf="playersService.showSplit(i)" />
           </ion-col>
         </ion-row>
 

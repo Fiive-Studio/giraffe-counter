@@ -3,6 +3,7 @@ import { IResults } from 'src/app/interfaces/iresult.interface';
 import { PersistenceService } from '../persistence.service';
 import { IResultsValidations } from 'src/app/interfaces/iresult-validations.interface';
 import { ChinchonValidationsService } from './chinchon-validations.service';
+import { BehaviorSubject } from 'rxjs';
 
 export class PlayerStatus {
   posActual: number = 0;
@@ -12,7 +13,8 @@ export class PlayerStatus {
 
 export enum ResultClass {
   default,
-  alert
+  alert,
+  miss
 }
 
 export class AddResultResponse {
@@ -30,14 +32,26 @@ export class GenericResultsService implements IResults {
   private resultsTotal: number[][];
   private playersStatus: PlayerStatus[];
   private validations: IResultsValidations;
-  PLAYER_STATUS: string = 'cc-player-status';
+  PLAYER_STATUS: string = 'gr-player-status';
+  PLAYER_TURN: string = 'gr-player-turn';
   DEFAULT_CLASS = 'default';
   ALERT_CLASS = 'alert';
+  MISS_CLASS = 'miss';
+
+  private currentTurn = new BehaviorSubject<number>(0);
+  currentTurn$ = this.currentTurn.asObservable();
 
   constructor(private persistence: PersistenceService) {
     this.results = new Array<number[]>();
     this.resultsTotal = new Array<number[]>();
     this.validations = new ChinchonValidationsService();
+
+    this.validations.currentTurn$.subscribe((e) => {
+      if (e != -1) {
+        this.persistTurn(e);
+        this.currentTurn.next(e);
+      }
+    });;
   }
 
   getResults(): number[][] { return this.results; }
@@ -46,6 +60,7 @@ export class GenericResultsService implements IResults {
     let rClass = this.validations.getClass(this.playersStatus[pos])
     if (rClass == ResultClass.default) { return this.DEFAULT_CLASS; }
     else if (rClass == ResultClass.alert) { return this.ALERT_CLASS; }
+    else if (rClass == ResultClass.miss) { return this.MISS_CLASS; }
   }
 
   setCount(count: number): void {
@@ -127,32 +142,42 @@ export class GenericResultsService implements IResults {
 
   updateReincarnate(values: number[]) {
     let newValue = values[0];
+    if (newValue == -1) { return; }
     for (let i = 1; i < values.length; i++) {
       this.resultsTotal[this.resultsTotal.length - 1][values[i]] = newValue;
+      this.playersStatus[i].currentValue = newValue;
     }
-  }
-
-  resetValues(): void {
-    this.results = new Array<number[]>();
-    this.resultsTotal = new Array<number[]>();
-    this.playersStatus = new Array<PlayerStatus>(this.count);
   }
 
   async loadResults(values: number[][], valuesTotal: number[][]): Promise<void> {
     this.results = values;
     this.resultsTotal = valuesTotal;
     this.playersStatus = await this.persistence.getObject(this.PLAYER_STATUS);
-  }
 
-  showSplit(pos: number): boolean {
-    return this.validations.showSplit(pos, this.count);
+    const value = await this.persistence.getValue(this.PLAYER_TURN);
+    if (value != null) {
+      this.currentTurn.next(parseInt(value));
+      this.validations.loadCurrentTurn(parseInt(value));
+    }
   }
 
   persist(): void {
     this.persistence.saveObject(this.PLAYER_STATUS, this.playersStatus);
   }
 
+  persistTurn(pos: number): void {
+    this.persistence.saveValue(this.PLAYER_TURN, pos.toString());
+  }
+
+  resetValues(): void {
+    this.results = new Array<number[]>();
+    this.resultsTotal = new Array<number[]>();
+    this.playersStatus = new Array<PlayerStatus>(this.count);
+    this.validations.loadCurrentTurn(0);
+  }
+
   removePersist(): void {
     this.persistence.removeItem(this.PLAYER_STATUS);
+    this.persistence.removeItem(this.PLAYER_TURN);
   }
 }

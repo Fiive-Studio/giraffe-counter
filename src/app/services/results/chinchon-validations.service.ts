@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IResultsValidations } from 'src/app/interfaces/iresult-validations.interface';
 import { PlayerStatus, ResultClass, AddResultResponse } from './generic-results.service';
+import { BehaviorSubject } from 'rxjs';
 
 export enum ChinchonPlayerState {
   active,
@@ -16,6 +17,9 @@ export class ChinchonValidationsService implements IResultsValidations {
   private minValue = 0;
   private maxValue = 100;
   private PLAYER_STATE = "player-state";
+  private currentTurn = new BehaviorSubject<number>(-1);
+  currentTurn$ = this.currentTurn.asObservable();
+  private currentTurnPos: number = 0;
 
   constructor() { }
 
@@ -56,7 +60,7 @@ export class ChinchonValidationsService implements IResultsValidations {
 
   validateReincarnate(playersStatus: PlayerStatus[]): number[] {
     let currentPos = -1;
-    let biggerNumber = 0;
+    let biggerNumber = -1;
     let posToUpdate: number[] = [];
 
     for (let x = 0; x < playersStatus.length; x++) {
@@ -72,13 +76,25 @@ export class ChinchonValidationsService implements IResultsValidations {
       }
     }
 
+    this.setTurn(playersStatus);
     if (posToUpdate.length == 0) { return null; }
     posToUpdate.unshift(biggerNumber);
     return posToUpdate;
   }
 
-  showSplit(pos: number, count: number): boolean {
-    return ((pos + 1) % count) == 0;
+  loadCurrentTurn(pos: number): void {
+    this.currentTurnPos = pos;
+    this.currentTurn.next(pos);
+  }
+
+  setTurn(playersStatus: PlayerStatus[]): void {
+    do {
+      this.currentTurnPos++;
+      if (this.currentTurnPos == playersStatus.length) { this.currentTurnPos = 0; }
+      if (playersStatus[this.currentTurnPos].extras[this.PLAYER_STATE] != ChinchonPlayerState.miss) { break; }
+    } while (true);
+
+    this.currentTurn.next(this.currentTurnPos);
   }
 
   getClass(player: PlayerStatus): ResultClass {
@@ -87,8 +103,9 @@ export class ChinchonValidationsService implements IResultsValidations {
     if (player.extras[this.PLAYER_STATE] == ChinchonPlayerState.active) {
       return ResultClass.default;
     }
-    else if (player.extras[this.PLAYER_STATE] != ChinchonPlayerState.active) {
+    else if (player.extras[this.PLAYER_STATE] == ChinchonPlayerState.reincarnate) {
       return ResultClass.alert;
     }
+    else { return ResultClass.miss; }
   }
 }

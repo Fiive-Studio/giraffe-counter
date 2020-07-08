@@ -18,6 +18,10 @@ Se requiere [Ionic CLI](https://ionicframework.com/docs/intro/cli) instalado
 Para el deployment se recomienda utilizar la guía del sitio oficial
 * [Ionic Framework](https://ionicframework.com/docs/)
 
+Cuando se realicen cambios en el código para generar actualizar el proyecto de Android se debe ejecutar:
+* ionic build
+* ionic capacitor copy android
+
 ## Construido con 🛠️
 
 *  [Ionic](https://ionicframework.com/)

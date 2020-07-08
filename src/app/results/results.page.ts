@@ -3,6 +3,7 @@ import { PlayersService } from '../services/players.service';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { UtilsService } from '../services/utils.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-results',
@@ -12,6 +13,7 @@ import { UtilsService } from '../services/utils.service';
 export class ResultsPage implements OnInit {
 
   private defaultName = 'player';
+  currentPlayer$: Observable<string>;
 
   constructor(private playersService: PlayersService
     , public alertController: AlertController
@@ -19,6 +21,7 @@ export class ResultsPage implements OnInit {
     , private router: Router) { }
 
   ngOnInit() {
+    this.currentPlayer$ = this.playersService.currentPlayer$;
   }
 
   redirectToPlayers() {
@@ -28,8 +31,7 @@ export class ResultsPage implements OnInit {
   async showAlertResults(pos: number) {
 
     const alert = await this.alertController.create({
-      header: 'Giraffe',
-      message: 'Agregar resultado',
+      header: 'Agregar resultado',
       inputs: this.createInputs(pos),
       buttons: [{
         text: 'Cancelar',
