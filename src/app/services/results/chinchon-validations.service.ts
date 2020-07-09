@@ -62,6 +62,7 @@ export class ChinchonValidationsService implements IResultsValidations {
     let currentPos = -1;
     let biggerNumber = -1;
     let posToUpdate: number[] = [];
+    let missPosition = -1;
 
     for (let x = 0; x < playersStatus.length; x++) {
       let player = playersStatus[x];
@@ -73,9 +74,12 @@ export class ChinchonValidationsService implements IResultsValidations {
 
         if (biggerNumber < player.currentValue && player.currentValue <= this.maxValue) { biggerNumber = player.currentValue; }
         if (player.currentValue > this.maxValue) { posToUpdate.push(x); }
+      } else {
+        if (player.posActual > missPosition) { missPosition = player.posActual; }
       }
     }
 
+    if(missPosition > currentPos){ return null; }
     this.setTurn(playersStatus);
     if (posToUpdate.length == 0) { return null; }
     posToUpdate.unshift(biggerNumber);
