@@ -12,6 +12,7 @@ export class PlayersPage implements OnInit {
 
   playersCount: number;
   showPlayers: boolean;
+  rCountType: string;
 
   constructor(private utils: UtilsService
     , private playerService: PlayersService
@@ -33,6 +34,7 @@ export class PlayersPage implements OnInit {
 
   processPlayersCount() {
     if (this.validateCount()) {
+      this.playerService.setCountType(this.rCountType);
       this.showPlayers = true;
     }
   }
@@ -46,6 +48,11 @@ export class PlayersPage implements OnInit {
 
     if (this.playersCount < 2 || this.playersCount > 5) {
       this.utils.showAlert("Error", "El número debe ser entre 2 y 5");
+      return false;
+    }
+
+    if (this.rCountType == undefined) {
+      this.utils.showAlert("Error", "Debe seleccionar el estilo de conteo");
       return false;
     }
 

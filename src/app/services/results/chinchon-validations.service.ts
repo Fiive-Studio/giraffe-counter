@@ -87,6 +87,8 @@ export class ChinchonValidationsService implements IResultsValidations {
     this.currentTurn.next(pos);
   }
 
+  showTurn(): boolean { return true; }
+
   setTurn(playersStatus: PlayerStatus[]): void {
     do {
       this.currentTurnPos++;

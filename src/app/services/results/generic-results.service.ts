@@ -4,6 +4,7 @@ import { PersistenceService } from '../persistence.service';
 import { IResultsValidations } from 'src/app/interfaces/iresult-validations.interface';
 import { ChinchonValidationsService } from './chinchon-validations.service';
 import { BehaviorSubject } from 'rxjs';
+import { GenericValidationsService } from './generic-validations.service';
 
 export class PlayerStatus {
   posActual: number = 0;
@@ -44,14 +45,6 @@ export class GenericResultsService implements IResults {
   constructor(private persistence: PersistenceService) {
     this.results = new Array<number[]>();
     this.resultsTotal = new Array<number[]>();
-    this.validations = new ChinchonValidationsService();
-
-    this.validations.currentTurn$.subscribe((e) => {
-      if (e != -1) {
-        this.persistTurn(e);
-        this.currentTurn.next(e);
-      }
-    });;
   }
 
   getResults(): number[][] { return this.results; }
@@ -63,6 +56,21 @@ export class GenericResultsService implements IResults {
     else if (rClass == ResultClass.miss) { return this.MISS_CLASS; }
   }
 
+  showTurn(): boolean { return this.validations.showTurn(); }
+
+  setCountType(type: string) {
+    if (type == "0") { this.validations = new GenericValidationsService(); }
+    else if (type == "1") { this.validations = new ChinchonValidationsService(); }
+
+    if (this.validations.currentTurn$ != undefined) {
+      this.validations.currentTurn$.subscribe((e) => {
+        if (e != -1) {
+          this.persistTurn(e);
+          this.currentTurn.next(e);
+        }
+      });
+    }
+  }
   setCount(count: number): void {
     this.count = count;
     this.playersStatus = new Array<PlayerStatus>(count);

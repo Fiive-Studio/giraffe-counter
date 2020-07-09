@@ -21,7 +21,9 @@
 
   <div class="ion-padding" *ngIf="playersService.getCount().length > 0">
     <ion-content class="grid-head" scrollY="false">
-      <ion-label class="ion-padding" position="stacked">Turno: <b>{{currentPlayer$ | async}}</b></ion-label>
+      <ion-label class="ion-padding" *ngIf="playersService.showTurn()" position="stacked">Turno:
+        <b>{{currentPlayer$ | async}}</b></ion-label>
+      <ion-label class="ion-padding" *ngIf="!playersService.showTurn()" position="stacked">Jugadores</ion-label>
 
       <ion-grid fixed="true">
         <ion-row>

@@ -12,6 +12,7 @@ export class PersistenceService {
   PLAYER_LIST: string = 'gl-player-list';
   RESULTS_LIST: string = 'gl-results-list';
   RESULTS_TOTAL_LIST: string = 'gl-results-total-list';
+  COUNT_TYPE: string = 'gl-count-type';
 
   constructor() { }
 

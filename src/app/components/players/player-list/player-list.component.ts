@@ -36,6 +36,7 @@ export class PlayerListComponent implements OnInit {
     if (this.playersService.validateNames()) {
       this.persistence.saveValue(this.persistence.PLAYER_COUNT, this.playersService.getPlayers().length.toString());
       this.persistence.saveObject(this.persistence.PLAYER_LIST, this.playersService.getPlayers());
+      this.persistence.saveObject(this.persistence.COUNT_TYPE, this.playersService.getCountType());
 
       this.router.navigateByUrl('/results');
     }

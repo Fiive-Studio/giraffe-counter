@@ -52,6 +52,9 @@ export class AppComponent implements OnInit {
     if (count != null) {
       this.playersService.setPlayersCount(parseInt(count));
 
+      const cType = await this.persistence.getObject(this.persistence.COUNT_TYPE);
+      this.playersService.setCountType(cType);
+
       const data = await this.persistence.getObject(this.persistence.PLAYER_LIST);
       this.playersService.setPlayers(data);
 

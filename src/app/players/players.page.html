@@ -17,6 +17,24 @@
         [(ngModel)]="playersCount"></ion-input>
     </ion-item>
 
+    <ion-list>
+      <ion-radio-group [(ngModel)]="rCountType">
+        <ion-list-header>
+          <ion-label>Estilo de conteo</ion-label>
+        </ion-list-header>
+    
+        <ion-item>
+          <ion-label>General</ion-label>
+          <ion-radio slot="start" value="0"></ion-radio>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label>Chinch&oacute;n</ion-label>
+          <ion-radio slot="start" value="1"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list>
+
     <div class="ion-padding">
       <ion-button expand="block" type="submit" (click)="processPlayersCount()" class="ion-no-margin">Aceptar
       </ion-button>

@@ -14,4 +14,6 @@ export interface IResults {
     persist(): void;
     removePersist(): void;
     getClass(pos: number): string;
+    showTurn(): boolean;
+    setCountType(type: string);
 }

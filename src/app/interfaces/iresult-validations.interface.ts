@@ -9,4 +9,5 @@ export interface IResultsValidations {
     isPossibleAddValue(playersStatus: PlayerStatus[], currentPos: number): AddResultResponse;
     validateReincarnate(playersStatus: PlayerStatus[]): number[]
     loadCurrentTurn(pos: number): void
+    showTurn(): boolean;
 }

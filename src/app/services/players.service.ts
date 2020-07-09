@@ -14,6 +14,7 @@ export class PlayersService {
   private playersAbbr: string[];
   private count: number[];
   private results: IResults;
+  private countType: string;
   private currentPlayer = new BehaviorSubject<string>('');
   currentPlayer$ = this.currentPlayer.asObservable();
 
@@ -42,16 +43,20 @@ export class PlayersService {
     this.results.setCount(count);
   }
 
-  setTurn() {
-    this.currentPlayer.next(this.players[0]); // defaultTurn
+  setTurn() { this.currentPlayer.next(this.players[0]); } // defaultTurn
+  setCountType(type: string) { 
+    this.countType = type; 
+    this.results.setCountType(this.countType);
   }
 
+  getCountType(): string { return this.countType; }
   getCount(): number[] { return this.count; }
   getPlayers(): string[] { return this.players; }
   getPlayersAbbr(): string[] { return this.playersAbbr; }
   getResults(): number[][] { return this.results.getResults(); }
   getResultsTotal(): number[][] { return this.results.getResultsTotal(); }
   getClass(pos: number): string { return this.results.getClass(pos); }
+  showTurn(): boolean { return this.results.showTurn(); }
 
   setPlayer(name: string, pos: number) {
     this.players[pos] = name;
@@ -110,5 +115,6 @@ export class PlayersService {
   resetValues() {
     this.results.resetValues();
     this.count = new Array<number>(0);
+    this.countType = undefined;
   }
 }

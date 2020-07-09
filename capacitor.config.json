@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "giraffe-counter",
+  "appId": "com.fiive.giraffe",
+  "appName": "Giraffe Counter",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
