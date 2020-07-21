@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PlayersService } from '../services/players.service';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
 import { UtilsService } from '../services/utils.service';
 import { Observable } from 'rxjs';
 
@@ -18,7 +18,8 @@ export class ResultsPage implements OnInit {
   constructor(private playersService: PlayersService
     , public alertController: AlertController
     , private utils: UtilsService
-    , private router: Router) { }
+    , private router: Router
+    , private platform: Platform) { }
 
   ngOnInit() {
     this.currentPlayer$ = this.playersService.currentPlayer$;
@@ -72,11 +73,16 @@ export class ResultsPage implements OnInit {
   }
 
   createInputs(pos: number) {
+    let type = 'tel';
+    if (this.platform.is('ios')) {
+      type = 'number';
+    }
+
     let input: any[] = new Array();
     input.push(
       {
         name: this.defaultName,
-        type: 'number',
+        type: type,
         placeholder: this.playersService.getPlayers()[pos]
       }
     );
