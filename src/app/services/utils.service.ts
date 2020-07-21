@@ -20,6 +20,15 @@ export class UtilsService {
     return false;
   }
 
+  isIntValue(value: any): boolean {
+    if (!this.isNullOrUndefined(value)) {
+      if (!Number.isNaN(Number(value))) {
+        if ((value + '').indexOf('.') == -1) { return true; }
+      }
+    }
+    return false;
+  }
+
   async showAlert(title: string, message: string) {
     const alert = await this.alertController.create({
       header: title,

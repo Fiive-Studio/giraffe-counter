@@ -41,8 +41,8 @@ export class PlayersPage implements OnInit {
 
   validateCount(): boolean {
 
-    if (this.utils.isNullOrUndefined(this.playersCount)) {
-      this.utils.showAlert("Error", "Debe digitar el número de jugadores");
+    if (!this.utils.isIntValue(this.playersCount)) {
+      this.utils.showAlert("Error", "Debe digitar el número de jugadores y debe ser un número entero");
       return false;
     }
 

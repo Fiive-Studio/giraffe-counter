@@ -64,8 +64,8 @@ export class ResultsPage implements OnInit {
 
   validateData(data: any): boolean {
 
-    if (this.utils.isNullOrEmpty(data[this.defaultName])) {
-      this.utils.showAlert("Error", "Debe digitar el resultado y debe ser numérico");
+    if (!this.utils.isIntValue(data[this.defaultName])) {
+      this.utils.showAlert("Error", "Debe digitar el resultado y debe ser un número entero");
       return false;
     }
 
