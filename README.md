@@ -36,5 +36,6 @@ Cuando se realicen cambios en el código para actualizar el proyecto de Android 
 ## Notas Adicionales
 
 * Fiive Studio te invita a que experimentes con este proyecto ideal para personas que estan iniciando en el mundo del desarrollo en Ionic
+* Puedes ver la aplicación en cualquier dispositivo en [Giraffe Counter](http://giraffe.fiivestudio.com/)
 * Puedes ver la aplicación publicada en la [Play Store](https://play.google.com/store/apps/details?id=com.fiive.giraffe)
 * Para guardar los datos se utiliza el plugin Storage de Capacitor es cual solo acepta el almacenamiento de textos
