@@ -7,6 +7,7 @@ export interface IResults {
     setCount(count: number): void;
     addResult(pos: number, value: number): AddResultResponse;
     addResults(values: number[]): void;
+    editResult(pos: number, value: number): void;
     loadResults(values: number[][], valuesTotal: number[][]): void;
     resetValues(): void;
     getResults(): number[][];
@@ -15,5 +16,5 @@ export interface IResults {
     removePersist(): void;
     getClass(pos: number): string;
     showTurn(): boolean;
-    setCountType(type: string);
+    setCountType(type: string): void;
 }

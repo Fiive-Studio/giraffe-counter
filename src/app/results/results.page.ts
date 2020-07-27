@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AlertController, Platform } from '@ionic/angular';
 import { UtilsService } from '../services/utils.service';
 import { Observable } from 'rxjs';
+import { AddResultResponse } from '../services/results/generic-results.service';
 
 @Component({
   selector: 'app-results',
@@ -29,10 +30,14 @@ export class ResultsPage implements OnInit {
     this.router.navigateByUrl('/players');
   }
 
-  async showAlertResults(pos: number) {
+  async showAlertResults(pos: number, mode: number) {
+
+    let header = '';
+    if (mode == 0) { header = 'Agregar resultado'; }
+    else if (mode == 1) { header = 'Editar resultado'; }
 
     const alert = await this.alertController.create({
-      header: 'Agregar resultado',
+      header: header,
       inputs: this.createInputs(pos),
       buttons: [{
         text: 'Cancelar',
@@ -41,7 +46,7 @@ export class ResultsPage implements OnInit {
       }, {
         text: 'Aceptar',
         handler: (data) => {
-          return this.addResult(pos, data);
+          return this.changeResult(pos, data, mode);
         }
       }],
       cssClass: 'alert-style'
@@ -50,13 +55,22 @@ export class ResultsPage implements OnInit {
     await alert.present();
   }
 
-  addResult(pos: number, data: any) {
+  changeResult(pos: number, data: any, mode: number) {
     if (this.validateData(data)) {
-      let response = this.playersService.addResult(pos, parseInt(data[this.defaultName]));
-      if (!response.status) {
-        this.utils.showAlert("Error", response.message);
-        return false;
-      } else { return true; }
+
+      let response: AddResultResponse;
+      if (mode == 0) {
+        response = this.playersService.addResult(pos, parseInt(data[this.defaultName]));
+
+        if (!response.status) {
+          this.utils.showAlert("Error", response.message);
+          return false;
+        } else { return true; }
+      }
+      else if (mode == 1) {
+        this.playersService.editResult(pos, parseInt(data[this.defaultName]));
+        return true;
+      }
     }
 
     return false;

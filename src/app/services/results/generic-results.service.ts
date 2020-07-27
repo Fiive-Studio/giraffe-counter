@@ -93,7 +93,7 @@ export class GenericResultsService implements IResults {
       this.addResultTotal(pos, value);
       this.playersStatus[pos].posActual++;
 
-      let updateValues = this.validations.validateReincarnate(this.playersStatus);
+      let updateValues = this.validations.validateReincarnate(this.playersStatus, true);
       if (updateValues != null) { this.updateReincarnate(updateValues); }
 
       return validation;
@@ -128,7 +128,7 @@ export class GenericResultsService implements IResults {
     this.addResultsTotal(values);
     for (let i = 0; i < this.playersStatus.length; i++) { this.playersStatus[i].posActual++; }
 
-    let updateValues = this.validations.validateReincarnate(this.playersStatus);
+    let updateValues = this.validations.validateReincarnate(this.playersStatus, true);
     if (updateValues != null) { this.updateReincarnate(updateValues); }
   }
 
@@ -146,6 +146,19 @@ export class GenericResultsService implements IResults {
 
       this.resultsTotal[this.results.length - 1] = values;
     }
+  }
+
+  editResult(pos: number, value: number): void {
+
+    if(this.results[this.results.length - 1][pos] == undefined){ return; }
+    this.results[this.results.length - 1][pos] += value;
+
+    let newValue = this.validations.validateValue((this.resultsTotal[this.results.length - 1][pos] + value), this.playersStatus[pos]);
+    this.resultsTotal[this.results.length - 1][pos] = newValue;
+    this.playersStatus[pos].currentValue = newValue;
+
+    let updateValues = this.validations.validateReincarnate(this.playersStatus, false);
+    if (updateValues != null) { this.updateReincarnate(updateValues); }
   }
 
   updateReincarnate(values: number[]) {

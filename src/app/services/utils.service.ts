@@ -21,7 +21,7 @@ export class UtilsService {
   }
 
   isIntValue(value: any): boolean {
-    if (!this.isNullOrEmpty(value)) {
+    if (!this.isNullOrEmpty(value + '')) {
       if (!Number.isNaN(Number(value))) {
         if ((value + '').indexOf('.') == -1) { return true; }
       }

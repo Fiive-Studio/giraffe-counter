@@ -7,7 +7,7 @@ export interface IResultsValidations {
     getClass(player: PlayerStatus): ResultClass
     validateValue(value: number, player: PlayerStatus): number;
     isPossibleAddValue(playersStatus: PlayerStatus[], currentPos: number): AddResultResponse;
-    validateReincarnate(playersStatus: PlayerStatus[]): number[]
+    validateReincarnate(playersStatus: PlayerStatus[], changeTurn: boolean): number[]
     loadCurrentTurn(pos: number): void
     showTurn(): boolean;
 }

@@ -44,8 +44,8 @@ export class PlayersService {
   }
 
   setTurn() { this.currentPlayer.next(this.players[0]); } // defaultTurn
-  setCountType(type: string) { 
-    this.countType = type; 
+  setCountType(type: string) {
+    this.countType = type;
     this.results.setCountType(this.countType);
   }
 
@@ -88,6 +88,15 @@ export class PlayersService {
     }
 
     return result;
+  }
+
+  editResult(pos: number, value: number) {
+    let result = this.results.editResult(pos, value);
+    
+    // Storage data
+    this.persistence.saveObject(this.persistence.RESULTS_LIST, this.results.getResults());
+    this.persistence.saveObject(this.persistence.RESULTS_TOTAL_LIST, this.results.getResultsTotal());
+    this.results.persist();
   }
 
   loadResults(values: number[][], valuesTotal: number[][]) {
