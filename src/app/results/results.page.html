@@ -36,15 +36,16 @@
 
     <ion-content class="grid-detail">
       <ion-grid fixed="true">
-        <ion-row *ngFor="let result of playersService.getResultsTotal()">
+        <ion-row *ngFor="let result of playersService.getResultsTotal(); let row = index">
           <ion-col *ngFor="let v of result; let y = index">
-            <div [ngClass]="playersService.getClass(y)">&nbsp;{{v}}</div>
+            <div [ngClass]="playersService.getClass(y)" *ngIf="playersService.getResultsTotal().length != (row + 1)">&nbsp;{{v}}</div>
+            <div [ngClass]="playersService.getClass(y)" *ngIf="playersService.getResultsTotal().length == (row + 1)" (click)="showAlertResults(y, 1)">&nbsp;{{v}}</div>
           </ion-col>
         </ion-row>
 
         <ion-row>
           <ion-col class="ion-text-center" *ngFor="let player of playersService.getCount(); let i = index">
-            <ion-button (click)="showAlertResults(i)">
+            <ion-button (click)="showAlertResults(i, 0)">
               <ion-icon name="add-circle-outline"></ion-icon>
             </ion-button>
           </ion-col>

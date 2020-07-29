@@ -58,7 +58,7 @@ export class ChinchonValidationsService implements IResultsValidations {
     return value;
   }
 
-  validateReincarnate(playersStatus: PlayerStatus[]): number[] {
+  validateReincarnate(playersStatus: PlayerStatus[], changeTurn: boolean): number[] {
     let currentPos = -1;
     let biggerNumber = -1;
     let posToUpdate: number[] = [];
@@ -79,8 +79,8 @@ export class ChinchonValidationsService implements IResultsValidations {
       }
     }
 
-    if(missPosition > currentPos){ return null; }
-    this.setTurn(playersStatus);
+    if (missPosition > currentPos) { return null; }
+    if (changeTurn) { this.setTurn(playersStatus); }
     if (posToUpdate.length == 0) { return null; }
     posToUpdate.unshift(biggerNumber);
     return posToUpdate;
