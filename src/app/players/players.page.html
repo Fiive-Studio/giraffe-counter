@@ -1,53 +1,56 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Jugadores</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="content-center-giraffe">
 
-<ion-content>
+  <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <div class="content-round-giraffe">
+          <div class="title">Número de jugadores</div>
+          <ion-item>
+              <ion-input required type="number" inputmode="numeric" placeholder="Mínimo 2 - Máximo 5"
+              [(ngModel)]="playersCount"></ion-input>
+          </ion-item>
+        </div>
+        <br />
+        <div class="content-round-giraffe">
+          <div class="title">Estilo de conteo</div>
+          <ion-list>
+            <ion-radio-group [(ngModel)]="rCountType">          
+              <ion-item>
+                <ion-label>General</ion-label>
+                <ion-radio slot="start" value="0"></ion-radio>
+                <div class="button-round-2-giraffe">
+                  <ion-img src="assets/icon/help.svg" class="img"></ion-img>
+                </div>
+              </ion-item>
+          
+              <ion-item>
+                <ion-label>Chinch&oacute;n</ion-label>
+                <ion-radio slot="start" value="1"></ion-radio>
+                <div class="button-round-2-giraffe">
+                  <ion-img src="assets/icon/help.svg" class="img"></ion-img>
+                </div>
+              </ion-item>
 
-  <div *ngIf="showPlayers===false">
-    <ion-item>
-      <ion-label position="stacked">Digite el número de Jugadores <ion-text color="danger">*</ion-text>
-      </ion-label>
-      <ion-input required type="number" inputmode="numeric" placeholder="Mínimo 2 - Máximo 5"
-        [(ngModel)]="playersCount"></ion-input>
-    </ion-item>
-
-    <ion-list>
-      <ion-radio-group [(ngModel)]="rCountType">
-        <ion-list-header>
-          <ion-label>Estilo de conteo</ion-label>
-        </ion-list-header>
-    
-        <ion-item>
-          <ion-label>General</ion-label>
-          <ion-radio slot="start" value="0"></ion-radio>
-        </ion-item>
-    
-        <ion-item>
-          <ion-label>Chinch&oacute;n</ion-label>
-          <ion-radio slot="start" value="1"></ion-radio>
-        </ion-item>
-      </ion-radio-group>
-    </ion-list>
-
-    <div class="ion-padding">
-      <ion-button expand="block" type="submit" (click)="processPlayersCount()" class="ion-no-margin">Aceptar
-      </ion-button>
+              <ion-item>
+                <ion-label>N&uacute;meros naturales</ion-label>
+                <ion-radio slot="start" value="2"></ion-radio>
+                <div class="button-round-2-giraffe">
+                  <ion-img src="assets/icon/help.svg" class="img"></ion-img>
+                </div>
+              </ion-item>
+            </ion-radio-group>
+          </ion-list>
+        </div>
+        <br />
+        <div (click)="processPlayersCount()" class="button-round-giraffe">
+          <ion-img src="assets/icon/next.svg" class="img"></ion-img>
+        </div>
+      </div>
     </div>
   </div>
-
-  <div class="ion-padding" *ngIf="showPlayers">
-    <app-player-list [playersCount]="playersCount"></app-player-list>
-
-    <div class="ion-padding">
-      <ion-button expand="block" type="submit" (click)="fixCount()" class="ion-no-margin">Borrar Datos Guardados
-      </ion-button>
-    </div>
+  
+  <div class="footer-giraffe">
+    <ion-img src="assets/img/logo_fiive.png" class="logo"></ion-img>
   </div>
 
 </ion-content>
