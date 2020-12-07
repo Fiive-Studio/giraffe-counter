@@ -5,56 +5,22 @@
       <div class="inner">
         <ion-img src="assets/icon/giraffe.svg" class="logo"></ion-img>
         <div class="content-round-giraffe">
-          <div class="title">Número de jugadores</div>
-          <ion-item>
-              <ion-input required type="number" inputmode="numeric" placeholder="Mínimo 2 - Máximo 5"
-              [(ngModel)]="playersCount"></ion-input>
+          <div class="title">Jugadores</div>
+          <ion-item *ngFor="let p of playersService.getCount(); let i = index">
+            <ion-input required type="text" class="ion-text-start" (ionBlur)="playerChange($event, i)" value="{{playersService.getPlayers()[i]}}" placeholder="Jugador {{i+1}}"></ion-input>
           </ion-item>
         </div>
         <br />
-        <div class="content-round-giraffe">
-          <div class="title">Estilo de conteo</div>
-          <ion-list>
-            <ion-radio-group [(ngModel)]="rCountType">          
-              <ion-item>
-                <ion-label>General</ion-label>
-                <ion-radio slot="start" value="0"></ion-radio>
-                <div class="button-round-info-giraffe">
-                  <ion-img src="assets/icon/help.svg" class="img"></ion-img>
-                </div>
-              </ion-item>
-          
-              <ion-item>
-                <ion-label>Chinch&oacute;n</ion-label>
-                <ion-radio slot="start" value="1"></ion-radio>
-                <div class="button-round-info-giraffe">
-                  <ion-img src="assets/icon/help.svg" class="img"></ion-img>
-                </div>
-              </ion-item>
-
-              <ion-item>
-                <ion-label>N&uacute;meros naturales</ion-label>
-                <ion-radio slot="start" value="2"></ion-radio>
-                <div class="button-round-info-giraffe">
-                  <ion-img src="assets/icon/help.svg" class="img"></ion-img>
-                </div>
-              </ion-item>
-            </ion-radio-group>
-          </ion-list>
+        <div (click)="goBack()" class="button-round-left-giraffe">
+          <ion-img src="assets/icon/back.svg" class="img"></ion-img>
         </div>
-        <br />
-        <div (click)="processPlayersCount()" class="button-round-giraffe">
+        <div (click)="goToResults()" class="button-round-right-giraffe">
           <ion-img src="assets/icon/next.svg" class="img"></ion-img>
         </div>
       </div>
     </div>
   </div>
   
-  <div class="footer-giraffe">
-    <div class="info button-round-info-giraffe">
-      <ion-img src="assets/icon/help.svg" class="img"></ion-img>
-    </div>
-    <ion-img src="assets/icon/logo_text.svg" class="logo"></ion-img>
-  </div>
+  <app-footer></app-footer>
 
 </ion-content>

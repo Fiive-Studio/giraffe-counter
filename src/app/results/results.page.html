@@ -1,12 +1,3 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Resultados</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
   <div *ngIf="playersService.getCount().length == 0">
     <ion-label class="ion-padding" position="stacked">Debe seleccionar el número de Jugadores <ion-text color="danger">*
@@ -19,43 +10,43 @@
     </div>
   </div>
 
-  <div class="ion-padding" *ngIf="playersService.getCount().length > 0">
-    <ion-content class="grid-head" scrollY="false">
-      <ion-label class="ion-padding" *ngIf="playersService.showTurn()" position="stacked">Turno:
+  <div *ngIf="playersService.getCount().length > 0">
+    <div class="grid-head" scrollY="false">
+      <ion-label *ngIf="playersService.showTurn()" position="stacked">Turno:
         <b>{{currentPlayer$ | async}}</b></ion-label>
-      <ion-label class="ion-padding" *ngIf="!playersService.showTurn()" position="stacked">Jugadores</ion-label>
+      <ion-label *ngIf="!playersService.showTurn()" position="stacked">Jugadores</ion-label>
 
       <ion-grid fixed="true">
         <ion-row>
           <ion-col *ngFor="let player of playersService.getPlayersAbbr();">
-            <div class="title">{{player}}</div>
+            <div class="button-round-add-giraffe title">{{player}}</div>
           </ion-col>
         </ion-row>
       </ion-grid>
-    </ion-content>
+    </div>
 
     <ion-content class="grid-detail">
       <ion-grid fixed="true">
         <ion-row *ngFor="let result of playersService.getResultsTotal(); let row = index">
           <ion-col *ngFor="let v of result; let y = index">
-            <div [ngClass]="playersService.getClass(y)" *ngIf="playersService.getResultsTotal().length != (row + 1)">&nbsp;{{v}}</div>
-            <div [ngClass]="playersService.getClass(y)" *ngIf="playersService.getResultsTotal().length == (row + 1)" (click)="showAlertResults(y, 1)">&nbsp;{{v}}</div>
+            <div class="button-round-add-giraffe" [ngClass]="playersService.getClass(y)" *ngIf="playersService.getResultsTotal().length != (row + 1)">{{v}}</div>
+            <div class="button-round-add-giraffe" [ngClass]="playersService.getClass(y)" *ngIf="playersService.getResultsTotal().length == (row + 1)" (click)="showAlertResults(y, 1)">{{v}}</div>
           </ion-col>
         </ion-row>
 
         <ion-row>
           <ion-col class="ion-text-center" *ngFor="let player of playersService.getCount(); let i = index">
-            <ion-button (click)="showAlertResults(i, 0)">
-              <ion-icon name="add-circle-outline"></ion-icon>
-            </ion-button>
+            <div (click)="showAlertResults(i, 0)" class="button-round-add-giraffe">
+              <ion-img src="assets/icon/add.svg" class="img"></ion-img>
+            </div>
           </ion-col>
         </ion-row>
       </ion-grid>
 
-      <div class="ion-padding">
+      <!--<div class="ion-padding">
         <ion-button expand="block" type="submit" (click)="removeResults()" class="ion-no-margin">Borrar Resultados
         </ion-button>
-      </div>
+      </div>-->
     </ion-content>
 
   </div>

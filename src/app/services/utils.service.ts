@@ -33,7 +33,11 @@ export class UtilsService {
     const alert = await this.alertController.create({
       header: title,
       message: message,
-      buttons: ['Aceptar']
+      buttons: [{
+        text: 'Aceptar',
+        cssClass: 'alert-button-giraffe'
+      }],
+      cssClass: 'alert-giraffe'
     });
 
     await alert.present();
@@ -43,12 +47,14 @@ export class UtilsService {
     const alert = await this.alertController.create({
       header: title,
       message: message,
+      cssClass: 'alert-giraffe',
       buttons: [{
         text: 'Cancelar',
         role: 'cancel',
-        cssClass: 'secondary'
+        cssClass: 'alert-button-giraffe'
       }, {
         text: 'Aceptar',
+        cssClass: 'alert-button-giraffe',
         handler: (data) => {
           return callbackOk(data);
         }

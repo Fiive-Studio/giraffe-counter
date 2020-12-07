@@ -112,11 +112,9 @@ ion-item{
 
 .button-round-giraffe{
     border-radius: 50%;
-    float: right;
     height: 48px;
     width: 48px;
     background-color: var(--ion-color-primary);
-    padding-left: 3px;
 
     .img{
         width: 15.72px;
@@ -127,6 +125,30 @@ ion-item{
 
 .button-round-giraffe:active{
     background-color: var(--ion-color-secondary);
+}
+
+.button-round-left-giraffe{
+    @extend .button-round-giraffe;
+    float: left;
+    padding-right: 3px;
+}
+
+.button-round-right-giraffe{
+    @extend .button-round-giraffe;
+    float: right;
+    padding-left: 3px;
+}
+
+.button-round-add-giraffe{
+    @extend .button-round-giraffe;
+    margin: 0 auto 0 auto;
+    padding-top: 12px;
+
+    .img{
+        width: 20px;
+        height: 20px;
+        margin: 0 auto 0 auto;
+    }
 }
 
 .button-round-info-giraffe{
@@ -146,4 +168,16 @@ ion-item{
 
 .button-round-info-giraffe:active{
     background-color: var(--ion-color-primary);
+}
+
+.alert-giraffe {
+    --background: var(--ion-color-primary);
+
+    .alert-message{
+        color: var(--ion-color-white) !important;
+    }
+}
+
+.alert-button-giraffe {
+    color: var(--ion-color-white) !important;
 }

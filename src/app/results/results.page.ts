@@ -39,17 +39,18 @@ export class ResultsPage implements OnInit {
     const alert = await this.alertController.create({
       header: header,
       inputs: this.createInputs(pos),
+      cssClass: 'alert-giraffe',
       buttons: [{
         text: 'Cancelar',
         role: 'cancel',
-        cssClass: 'secondary'
+        cssClass: 'alert-button-giraffe'
       }, {
         text: 'Aceptar',
+        cssClass: 'alert-button-giraffe',
         handler: (data) => {
           return this.changeResult(pos, data, mode);
         }
-      }],
-      cssClass: 'alert-style'
+      }]
     });
 
     await alert.present();

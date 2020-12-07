@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { PlayersPageRoutingModule } from './players-routing.module';
+import { CounterModePageRoutingModule } from './counter-mode-routing.module';
 
-import { PlayersPage } from './players.page';
+import { CounterModePage } from './counter-mode.page';
 import { FooterComponent } from '../common/footer/footer.component';
 
 @NgModule({
@@ -14,8 +14,8 @@ import { FooterComponent } from '../common/footer/footer.component';
     CommonModule,
     FormsModule,
     IonicModule,
-    PlayersPageRoutingModule
+    CounterModePageRoutingModule
   ],
-  declarations: [PlayersPage, FooterComponent]
+  declarations: [CounterModePage, FooterComponent]
 })
-export class PlayersPageModule {}
+export class CounterModePageModule {}
