@@ -110,4 +110,8 @@ export class ResultsPage implements OnInit {
       this.playersService.removePersistence();
     });
   }
+
+  goBack(){
+    this.router.navigateByUrl('/players');
+  }
 }

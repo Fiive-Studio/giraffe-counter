@@ -133,6 +133,20 @@ ion-item{
     padding-right: 3px;
 }
 
+.button-round-left-small-giraffe{
+    @extend .button-round-giraffe;
+    float: left;
+    height: 31px;
+    width: 31px;
+    padding-right: 3px;
+
+    .img{
+        width: 10px;
+        height: 17.02px;
+        margin: 7px auto 0 auto;
+    }
+}
+
 .button-round-right-giraffe{
     @extend .button-round-giraffe;
     float: right;
@@ -170,6 +184,15 @@ ion-item{
     background-color: var(--ion-color-primary);
 }
 
+.button-round-remove-giraffe{
+    @extend .button-round-info-giraffe;
+    background-color: var(--ion-color-danger);
+}
+
+.button-round-remove-giraffe:active{
+    background-color: var(--ion-color-secondary);
+}
+
 .alert-giraffe {
     --background: var(--ion-color-primary);
 
@@ -180,4 +203,8 @@ ion-item{
 
 .alert-button-giraffe {
     color: var(--ion-color-white) !important;
+}
+
+.alert-button-giraffe:active {
+    background-color: var(--ion-color-secondary);
 }

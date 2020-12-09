@@ -12,9 +12,16 @@
 
   <div *ngIf="playersService.getCount().length > 0">
     <div class="grid-head" scrollY="false">
-      <ion-label *ngIf="playersService.showTurn()" position="stacked">Turno:
-        <b>{{currentPlayer$ | async}}</b></ion-label>
-      <ion-label *ngIf="!playersService.showTurn()" position="stacked">Jugadores</ion-label>
+      <div class="title-giraffe">
+        <div (click)="goBack()" class="button-round-left-small-giraffe">
+          <ion-img src="assets/icon/back.svg" class="img"></ion-img>
+        </div>&nbsp;
+        <ion-label *ngIf="playersService.showTurn()" position="stacked"><b>Turno: {{currentPlayer$ | async}}</b></ion-label>
+        <ion-label *ngIf="!playersService.showTurn()" position="stacked">Jugadores</ion-label>
+        <div class="button-round-remove-giraffe">
+          <ion-img src="assets/icon/remove.svg" class="img" (click)="removeResults()"></ion-img>
+        </div>
+      </div>
 
       <ion-grid fixed="true">
         <ion-row>
@@ -42,13 +49,7 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-
-      <!--<div class="ion-padding">
-        <ion-button expand="block" type="submit" (click)="removeResults()" class="ion-no-margin">Borrar Resultados
-        </ion-button>
-      </div>-->
     </ion-content>
-
   </div>
 
 </ion-content>

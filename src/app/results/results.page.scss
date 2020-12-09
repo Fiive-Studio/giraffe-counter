@@ -26,13 +26,17 @@ ion-col > .miss {
   position: fixed;
   left: 0;
   right: 0;
-  height: 80px !important;
+  height: 100px !important;
+  
+  .title-giraffe{
+    margin: 10px 25px 10px 25px;
+  }
 }
 
 .grid-detail{
   position: fixed;
   left: 0;
   right: 0;
-  top: 80px !important;
-  height: 88% !important;
+  top: 100px !important;
+  height: 82% !important;
 }
