@@ -34,7 +34,7 @@ export class ResultsPage implements OnInit {
 
     let header = '';
     if (mode == 0) { header = 'Agregar resultado'; }
-    else if (mode == 1) { header = 'Editar resultado'; }
+    else if (mode == 1) { header = 'Agregue el valor a sumar o restar'; }
 
     const alert = await this.alertController.create({
       header: header,

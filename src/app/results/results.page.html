@@ -37,7 +37,12 @@
         <ion-row *ngFor="let result of playersService.getResultsTotal(); let row = index">
           <ion-col *ngFor="let v of result; let y = index">
             <div class="button-round-add-giraffe" [ngClass]="playersService.getClass(y)" *ngIf="playersService.getResultsTotal().length != (row + 1)">{{v}}</div>
-            <div class="button-round-add-giraffe" [ngClass]="playersService.getClass(y)" *ngIf="playersService.getResultsTotal().length == (row + 1)" (click)="showAlertResults(y, 1)">{{v}}</div>
+            <div class="button-round-add-giraffe" [ngClass]="playersService.getClass(y)" *ngIf="playersService.getResultsTotal().length == (row + 1)" (click)="showAlertResults(y, 1)">
+              <div style="position: relative;">
+                {{v}}
+                <ion-img src="assets/icon/edit.svg" class="img-edit-giraffe"></ion-img>
+              </div>
+            </div>
           </ion-col>
         </ion-row>
 
