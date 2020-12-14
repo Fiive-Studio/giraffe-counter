@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
+import { AboutPage } from '../common/about/about.page';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilsService {
 
-  constructor(public alertController: AlertController) { }
+  constructor(public alertController: AlertController
+    , public modalController: ModalController) { }
 
   isNullOrUndefined(obj: any): boolean {
     if (obj === undefined) { return true; }
@@ -62,5 +64,12 @@ export class UtilsService {
     });
 
     await alert.present();
+  }
+
+  async showModal(){
+    const modal = await this.modalController.create({
+      component: AboutPage
+    });
+    return await modal.present();
   }
 }
