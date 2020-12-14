@@ -31,6 +31,12 @@ export class CounterModePage implements OnInit {
     }
   }
 
+  showMessage(type: number){
+    if(type === 0){ this.utils.showAlert("General", "Agrega los resultados permitiendo tantos números negativos como positivos"); }
+    else if(type === 1){ this.utils.showAlert("Chinchón", "Agrega los resultados manteniendo las reglas del chinchón, mostrando el turno y estado de los jugadores"); }
+    else if(type === 2){ this.utils.showAlert("Números naturales", "Agrega los resultados solo permitiendo números naturales en el valor total"); }
+  }
+
   private navigateToPlayers(){
     this.router.navigateByUrl('/players');
   }

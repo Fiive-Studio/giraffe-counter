@@ -5,6 +5,7 @@ import { IResultsValidations } from 'src/app/interfaces/iresult-validations.inte
 import { ChinchonValidationsService } from './chinchon-validations.service';
 import { BehaviorSubject } from 'rxjs';
 import { GenericValidationsService } from './generic-validations.service';
+import { PositiveNumbersService } from './positive-numbers.service';
 
 export class PlayerStatus {
   posActual: number = 0;
@@ -61,6 +62,7 @@ export class GenericResultsService implements IResults {
   setCountType(type: string) {
     if (type == "0") { this.validations = new GenericValidationsService(); }
     else if (type == "1") { this.validations = new ChinchonValidationsService(); }
+    else if (type == "2") { this.validations = new PositiveNumbersService(); }
 
     if (this.validations.currentTurn$ != undefined) {
       this.validations.currentTurn$.subscribe((e) => {
