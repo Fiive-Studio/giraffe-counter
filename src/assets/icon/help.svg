@@ -1,0 +1,9 @@
+<svg id="informacion" xmlns="http://www.w3.org/2000/svg" width="18.918" height="18.918" viewBox="0 0 18.918 18.918">
+  <g id="Grupo_8" data-name="Grupo 8">
+    <g id="Grupo_7" data-name="Grupo 7">
+      <circle id="Elipse_16" data-name="Elipse 16" cx="0.924" cy="0.924" r="0.924" transform="translate(8.535 13.062)" fill="#fff"/>
+      <path id="Trazado_2" data-name="Trazado 2" d="M9.459,0a9.459,9.459,0,1,0,9.459,9.459A9.454,9.454,0,0,0,9.459,0Zm0,17.44A7.981,7.981,0,1,1,17.44,9.459,7.977,7.977,0,0,1,9.459,17.44Z" fill="#fff"/>
+      <path id="Trazado_3" data-name="Trazado 3" d="M178.956,128.5A2.959,2.959,0,0,0,176,131.456a.739.739,0,1,0,1.478,0,1.478,1.478,0,1,1,1.478,1.478.739.739,0,0,0-.739.739v1.848a.739.739,0,1,0,1.478,0v-1.2a2.956,2.956,0,0,0-.739-5.818Z" transform="translate(-169.497 -123.752)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

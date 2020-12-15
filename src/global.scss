@@ -24,3 +24,195 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+html{
+    font-size: 20px;
+}
+
+input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    font-size: 14px;
+}
+input::-moz-placeholder { /* Firefox 19+ */
+    font-size: 14px;
+}
+input:-ms-input-placeholder { /* IE 10+ */
+    font-size: 14px;
+}
+input:-moz-placeholder { /* Firefox 18- */
+    font-size: 14px;
+}
+
+.content-center-giraffe{
+    .outer {
+        display: table;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+    }
+    
+    .middle {
+        display: table-cell;
+        vertical-align: middle;
+    }
+    
+    .inner {
+        margin: 10px 30px 80px 30px;
+        height: 85%;
+        overflow-y: auto;
+
+        .logo{
+            width: 75px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 10px;
+        }
+    }
+}
+
+.footer-giraffe{
+    position: fixed;
+    right: 30px;
+    bottom: 20px;
+    z-index: 3000;
+
+    .logo{
+        width: 90px;
+        margin-left: auto;
+    }
+
+    .info{
+        position: fixed;
+        left: 30px;
+        bottom: 20px;
+    }
+}
+
+ion-label{
+    font-size: 14px !important;
+}
+
+ion-item{
+    --inner-border-width: 0 0 3px 0;
+    --border-width: 0;
+}
+
+.content-round-giraffe{
+    border-radius: 30px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: var(--ion-color-primary);
+    padding: 10px 25px 25px 10px;
+
+    .title{
+        margin: 5px 0 0 15px;
+    }
+}
+
+.button-round-giraffe{
+    border-radius: 50%;
+    height: 48px;
+    width: 48px;
+    background-color: var(--ion-color-primary);
+
+    .img{
+        width: 15.72px;
+        height: 26.75px;
+        margin: 10px auto 0 auto;
+    }
+}
+
+.button-round-giraffe:active{
+    background-color: var(--ion-color-secondary);
+}
+
+.button-round-left-giraffe{
+    @extend .button-round-giraffe;
+    float: left;
+    padding-right: 3px;
+}
+
+.button-round-left-small-giraffe{
+    @extend .button-round-giraffe;
+    float: left;
+    height: 31px;
+    width: 31px;
+    padding-right: 3px;
+
+    .img{
+        width: 10px;
+        height: 17.02px;
+        margin: 7px auto 0 auto;
+    }
+}
+
+.button-round-right-giraffe{
+    @extend .button-round-giraffe;
+    float: right;
+    padding-left: 3px;
+}
+
+.button-round-add-giraffe{
+    @extend .button-round-giraffe;
+    margin: 0 auto 0 auto;
+    padding-top: 12px;
+
+    .img{
+        width: 20px;
+        height: 20px;
+        margin: 0 auto 0 auto;
+    }
+
+    .img-edit-giraffe{
+        position: absolute;
+        top: -17px;
+        right: 2px;
+        width: 17px;
+        height: 17px;
+    }
+}
+
+.button-round-info-giraffe{
+    border-radius: 50%;
+    float: right;
+    height: 31px;
+    width: 31px;
+    background-color: var(--ion-color-secondary);
+    z-index: 3000;
+
+    .img{
+        width: 18.92px;
+        height: 18.92px;
+        margin: 6px auto 0 auto;
+    }
+}
+
+.button-round-info-giraffe:active{
+    background-color: var(--ion-color-primary);
+}
+
+.button-round-remove-giraffe{
+    @extend .button-round-info-giraffe;
+    background-color: var(--ion-color-danger);
+}
+
+.button-round-remove-giraffe:active{
+    background-color: var(--ion-color-secondary);
+}
+
+.alert-giraffe {
+    --background: var(--ion-color-primary);
+
+    .alert-message{
+        color: var(--ion-color-white) !important;
+    }
+}
+
+.alert-button-giraffe {
+    color: var(--ion-color-white) !important;
+}
+
+.alert-button-giraffe:active {
+    background-color: var(--ion-color-secondary);
+}

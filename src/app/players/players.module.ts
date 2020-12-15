@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { PlayersPageRoutingModule } from './players-routing.module';
 
 import { PlayersPage } from './players.page';
-import { PlayerListComponent } from '../components/players/player-list/player-list.component';
+import { FooterComponent } from '../common/footer/footer.component';
 
 @NgModule({
   imports: [
@@ -16,6 +16,6 @@ import { PlayerListComponent } from '../components/players/player-list/player-li
     IonicModule,
     PlayersPageRoutingModule
   ],
-  declarations: [PlayersPage, PlayerListComponent]
+  declarations: [PlayersPage, FooterComponent]
 })
 export class PlayersPageModule {}

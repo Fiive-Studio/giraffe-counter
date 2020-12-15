@@ -1,0 +1,55 @@
+<ion-content class="content-center-giraffe">
+
+  <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <ion-img src="assets/icon/giraffe.svg" class="logo"></ion-img>
+        <div class="content-round-giraffe">
+          <div class="title">Número de jugadores</div>
+          <ion-item>
+              <ion-input required type="number" inputmode="numeric" placeholder="Mínimo 2 - Máximo 5"
+              [(ngModel)]="playersCount"></ion-input>
+          </ion-item>
+        </div>
+        <br />
+        <div class="content-round-giraffe">
+          <div class="title">Estilo de conteo</div>
+          <ion-list>
+            <ion-radio-group [(ngModel)]="rCountType">          
+              <ion-item>
+                <ion-label>General</ion-label>
+                <ion-radio slot="start" value="0"></ion-radio>
+                <div class="button-round-info-giraffe" (click)="showMessage(0)">
+                  <ion-img src="assets/icon/help.svg" class="img"></ion-img>
+                </div>
+              </ion-item>
+          
+              <ion-item>
+                <ion-label>Chinch&oacute;n</ion-label>
+                <ion-radio slot="start" value="1"></ion-radio>
+                <div class="button-round-info-giraffe" (click)="showMessage(1)">
+                  <ion-img src="assets/icon/help.svg" class="img"></ion-img>
+                </div>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>N&uacute;meros naturales</ion-label>
+                <ion-radio slot="start" value="2"></ion-radio>
+                <div class="button-round-info-giraffe" (click)="showMessage(2)">
+                  <ion-img src="assets/icon/help.svg" class="img"></ion-img>
+                </div>
+              </ion-item>
+            </ion-radio-group>
+          </ion-list>
+        </div>
+        <br />
+        <div (click)="processPlayersCount()" class="button-round-right-giraffe">
+          <ion-img src="assets/icon/next.svg" class="img"></ion-img>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <app-footer></app-footer>
+
+</ion-content>

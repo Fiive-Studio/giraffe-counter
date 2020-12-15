@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'players',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {
@@ -14,7 +14,12 @@ const routes: Routes = [
   {
     path: 'results',
     loadChildren: () => import('./results/results.module').then( m => m.ResultsPageModule)
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./counter-mode/counter-mode.module').then( m => m.CounterModePageModule)
   }
+
 ];
 
 @NgModule({

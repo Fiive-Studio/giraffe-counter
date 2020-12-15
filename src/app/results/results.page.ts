@@ -34,25 +34,30 @@ export class ResultsPage implements OnInit {
 
     let header = '';
     if (mode == 0) { header = 'Agregar resultado'; }
-    else if (mode == 1) { header = 'Editar resultado'; }
+    else if (mode == 1) { header = 'Agregue el valor a sumar o restar'; }
 
     const alert = await this.alertController.create({
       header: header,
       inputs: this.createInputs(pos),
+      cssClass: 'alert-giraffe',
       buttons: [{
         text: 'Cancelar',
         role: 'cancel',
-        cssClass: 'secondary'
+        cssClass: 'alert-button-giraffe'
       }, {
         text: 'Aceptar',
+        cssClass: 'alert-button-giraffe',
         handler: (data) => {
           return this.changeResult(pos, data, mode);
         }
-      }],
-      cssClass: 'alert-style'
+      }]
     });
 
     await alert.present();
+  }
+
+  async showPlayerName(pos: number){
+    this.utils.showAlert(this.playersService.getPlayers()[pos], '');
   }
 
   changeResult(pos: number, data: any, mode: number) {
@@ -108,5 +113,9 @@ export class ResultsPage implements OnInit {
     this.utils.showAlertDecision("Giraffe", "¿Esta seguro de borrar los resultados?", () => {
       this.playersService.removePersistence();
     });
+  }
+
+  goBack(){
+    this.router.navigateByUrl('/players');
   }
 }

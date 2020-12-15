@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 
 export interface IResults {
     currentTurn$: Observable<number>;
+    PLAYER_TURN: string;
 
     setCount(count: number): void;
     addResult(pos: number, value: number): AddResultResponse;

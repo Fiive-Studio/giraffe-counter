@@ -1,0 +1,50 @@
+.about-back-button-giraffe{
+    position: fixed;
+    left: 25px;
+    top: 25px;
+}
+
+.about-footer-giraffe{
+    position: fixed;
+    right: 30px;
+    bottom: 20px;
+    z-index: 3000;
+
+    .img-giraffe{
+        width: 75px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+    }
+
+    .logo{
+        width: 90px;
+        margin-left: auto;
+    }
+
+    .info{
+        z-index: 3000;
+        position: fixed;
+        left: 30px;
+        bottom: 20px;
+
+        .img{
+            width: 129.91px;
+            height: 56.21px;
+        }
+    }
+}
+
+.about-text-giraffe{
+    margin: 100px 30px 25px 30px;
+
+    .about-content-giraffe{
+        font-size: 18px;
+    }
+
+    @media(max-height: 600px) {
+        .about-content-giraffe{
+            font-size: 12px;
+        }
+    }
+}

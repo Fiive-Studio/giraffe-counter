@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
+import { AboutPage } from '../common/about/about.page';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilsService {
 
-  constructor(public alertController: AlertController) { }
+  constructor(public alertController: AlertController
+    , public modalController: ModalController) { }
 
   isNullOrUndefined(obj: any): boolean {
     if (obj === undefined) { return true; }
@@ -33,7 +35,11 @@ export class UtilsService {
     const alert = await this.alertController.create({
       header: title,
       message: message,
-      buttons: ['Aceptar']
+      buttons: [{
+        text: 'Aceptar',
+        cssClass: 'alert-button-giraffe'
+      }],
+      cssClass: 'alert-giraffe'
     });
 
     await alert.present();
@@ -43,12 +49,14 @@ export class UtilsService {
     const alert = await this.alertController.create({
       header: title,
       message: message,
+      cssClass: 'alert-giraffe',
       buttons: [{
         text: 'Cancelar',
         role: 'cancel',
-        cssClass: 'secondary'
+        cssClass: 'alert-button-giraffe'
       }, {
         text: 'Aceptar',
+        cssClass: 'alert-button-giraffe',
         handler: (data) => {
           return callbackOk(data);
         }
@@ -56,5 +64,12 @@ export class UtilsService {
     });
 
     await alert.present();
+  }
+
+  async showModal(){
+    const modal = await this.modalController.create({
+      component: AboutPage
+    });
+    return await modal.present();
   }
 }
