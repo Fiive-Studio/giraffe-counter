@@ -23,6 +23,7 @@ Cuando se realicen cambios en el código para actualizar el proyecto de Android 
 
 * ionic build
 * ionic capacitor copy android
+* npx cap update android: Este comando se ejecuta cuando salga el error que no encuentra el archivo capacitor-cordova-android-plugins\cordova.variables.gradle
 
 ## Construido con 🛠️
 
