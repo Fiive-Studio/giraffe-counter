@@ -25,8 +25,8 @@
 
       <ion-grid fixed="true">
         <ion-row>
-          <ion-col *ngFor="let player of playersService.getPlayersAbbr();">
-            <div class="button-round-add-giraffe title">{{player}}</div>
+          <ion-col *ngFor="let player of playersService.getPlayersAbbr(); let i = index">
+            <div class="button-round-add-giraffe title" (click)="showPlayerName(i)">{{player}}</div>
           </ion-col>
         </ion-row>
       </ion-grid>

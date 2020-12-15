@@ -56,6 +56,10 @@ export class ResultsPage implements OnInit {
     await alert.present();
   }
 
+  async showPlayerName(pos: number){
+    this.utils.showAlert(this.playersService.getPlayers()[pos], '');
+  }
+
   changeResult(pos: number, data: any, mode: number) {
     if (this.validateData(data)) {
 

@@ -43,7 +43,15 @@ export class PlayersService {
     this.results.setCount(count);
   }
 
-  setTurn() { this.currentPlayer.next(this.players[0]); } // defaultTurn
+  async setTurn() { 
+    const currentTurn = await this.persistence.getValue(this.results.PLAYER_TURN);
+    if(currentTurn == null){
+      this.currentPlayer.next(this.players[0]); // defaultTurn
+    }else{
+      this.currentPlayer.next(this.players[parseInt(currentTurn)]);
+    }
+  }
+
   setCountType(type: string) {
     this.countType = type;
     this.results.setCountType(this.countType);
